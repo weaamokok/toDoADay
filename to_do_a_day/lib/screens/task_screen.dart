@@ -35,97 +35,95 @@ class TasksScreen extends StatelessWidget {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 20, left: 50),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Today',
-                      style: conToday,
-                    ),
-                    SizedBox(
-                      height: 9,
-                    ),
-                    Text(
-                      DateFormat('EEEE').format(date).substring(
-                              0, 3) + //date fromat is from intl package
-                          ',' +
-                          DateFormat('d').format(date) +
-                          ' ' +
-                          DateFormat('MMMM').format(date),
-                      style: conTodaysDate,
-                    ),
-                    //today's date
-                  ],
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(top: 20, left: 50),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Today',
+                    style: conToday,
+                  ),
+                  SizedBox(
+                    height: 9,
+                  ),
+                  Text(
+                    DateFormat('EEEE').format(date).substring(
+                            0, 3) + //date fromat is from intl package
+                        ',' +
+                        DateFormat('d').format(date) +
+                        ' ' +
+                        DateFormat('MMMM').format(date),
+                    style: conTodaysDate,
+                  ),
+                  //today's date
+                ],
               ),
-              SizedBox(
-                height: 25,
-              ),
-              Container(
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Expanded(
+              child: Container(
                 padding: EdgeInsets.all(50),
-                width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius:
                         BorderRadius.only(topLeft: Radius.circular(50))),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 50,
+                child: Column(
+                  children: [
+                    Center(
+                      child: Column(
+                        children: [
+                          ///if it's the first time to enter the app or its 12 am
+                          SizedBox(
+                            height: 50,
+                          ),
+                          SizedBox(
+                            width: 209,
+                            height: 209,
+                            child: Image(
+                              image: AssetImage(
+                                  'images/Stuck at Home - To Do List.png'),
                             ),
-                            SizedBox(
-                              width: 209,
-                              height: 209,
-                              child: Image(
-                                image: AssetImage(
-                                    'images/Stuck at Home - To Do List.png'),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'add your to-dos for today,\n remember your to-dos will be archived when the day is over',
-                              style: TextStyle(
-                                  fontFamily: 'Comics',
-                                  fontSize: 16,
-                                  color: Color(0xff2A3642).withOpacity(.2)),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'add your to-dos for today,\n remember your to-dos will be archived when the day is over',
+                            style: TextStyle(
+                                fontFamily: 'Comics',
+                                fontSize: 16,
+                                color: Color(0xff2A3642).withOpacity(.2)),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 10,
-                        // height: MediaQuery.of(context).size.height * .158,
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: FloatingActionButton(
-                            backgroundColor: Color(0xff127681),
-                            child: Icon(
-                              Icons.add_rounded,
-                              size: 35,
-                            ),
-                            onPressed: () {}),
-                      )
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 120,
+                      // height: MediaQuery.of(context).size.height * .158,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: FloatingActionButton(
+                          backgroundColor: Color(0xff127681),
+                          child: Icon(
+                            Icons.add_rounded,
+                            size: 35,
+                          ),
+                          onPressed: () {}),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
