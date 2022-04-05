@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import '../elements/const.dart';
 
-//TODO find a way to make the white container to take the remaining space of the screen
+//TODO refactor the screen
 class TasksScreen extends StatelessWidget {
   DateTime date = new DateTime.now();
   @override
@@ -79,7 +79,7 @@ class TasksScreen extends StatelessWidget {
                     Center(
                       child: Column(
                         children: [
-                          ///if it's the first time to enter the app or its 12 am
+                          ///if it's the first time to enter the app or its 12 am set this otherwise
                           SizedBox(
                             height: 50,
                           ),
