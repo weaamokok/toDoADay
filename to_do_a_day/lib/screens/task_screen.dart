@@ -6,6 +6,24 @@ class TasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        leading: Icon(
+          Icons.menu_rounded,
+          color: Colors.white,
+          size: 30,
+        ),
+        actions: [
+          Icon(
+            Icons.help_rounded,
+            color: Colors.white,
+            size: 30,
+          )
+        ],
+        elevation: 0,
+        backgroundColor: Color(0xffF3C623),
+      ),
+      body: Container(),
+    );
   }
 }
