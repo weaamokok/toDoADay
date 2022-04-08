@@ -15,6 +15,7 @@ class _aTaskState extends State<aTask> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minVerticalPadding: 0,
       leading: Transform.scale(
         scale: 1.5,
         child: Checkbox(
@@ -38,6 +39,10 @@ class _aTaskState extends State<aTask> {
                 color: Color(0xff2A3642))
             : TextStyle(
                 fontFamily: 'Comics', fontSize: 15, color: Color(0xff2A3642)),
+      ),
+      trailing: Container(
+        width: 30,
+        color: Color(0xffD25656),
       ),
     );
   }

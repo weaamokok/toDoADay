@@ -8,6 +8,9 @@ class checkLists extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: <Widget>[aTask()]);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 50.0),
+      child: ListView(children: <Widget>[aTask()]),
+    );
   }
 }

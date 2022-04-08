@@ -78,7 +78,7 @@ class _TasksScreenState extends State<TasksScreen> {
             Expanded(
               child: Container(
                   //the to dos  container
-                  padding: EdgeInsets.all(50),
+
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:

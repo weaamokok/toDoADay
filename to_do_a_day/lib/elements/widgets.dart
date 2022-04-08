@@ -16,8 +16,11 @@ Widget EmptyList = Column(
           SizedBox(
             width: 209,
             height: 209,
-            child: Image(
-              image: AssetImage('images/Stuck at Home - To Do List.png'),
+            child: Padding(
+              padding: const EdgeInsets.all(50),
+              child: Image(
+                image: AssetImage('images/Stuck at Home - To Do List.png'),
+              ),
             ),
           ),
           SizedBox(
