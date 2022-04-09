@@ -1,5 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// ignore: unnecessary_import
 
 import '../const.dart';
 
@@ -40,8 +42,10 @@ Widget buildBottomSheet(BuildContext context) => Container(
               ),
               Transform.translate(
                 offset: Offset(50, 0),
+                // ignore: prefer_const_constructors
                 child: SizedBox(
                     width: 300,
+                    // ignore: prefer_const_constructors
                     child: TextField(
                       autofocus: true,
                     )),
