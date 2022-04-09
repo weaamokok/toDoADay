@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 Color conPrimaryY = Color(0xffF3C623);
 Color conPrimaryB = Color(0xff2A3642);
 Color conPrimaryG = Color(0xff127681);
+Color conPriorityR = Color(0xffD25656);
+
 TextStyle conToday = TextStyle(
     color: Colors.white,
     fontFamily: 'ComicsB',
@@ -13,3 +15,10 @@ TextStyle conTodaysDate = TextStyle(
     fontFamily: 'Comics',
     fontSize: 13,
     fontWeight: FontWeight.normal);
+TextStyle conTodoTextStyle =
+    TextStyle(fontFamily: 'Comics', fontSize: 15, color: Color(0xff2A3642));
+TextStyle conCheckedTodoTextStyle = TextStyle(
+    decoration: TextDecoration.lineThrough,
+    fontFamily: 'Comics',
+    fontSize: 15,
+    color: Color(0xff2A3642));

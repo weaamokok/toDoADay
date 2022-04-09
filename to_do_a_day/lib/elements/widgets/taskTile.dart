@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../const.dart';
+import 'package:intl/intl.dart';
 
 class aTask extends StatefulWidget {
   @override
@@ -11,11 +12,11 @@ class _aTaskState extends State<aTask> {
   bool c = false;
 
   String todo = 'bake a cake';
+  DateTime date = new DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      minVerticalPadding: 0,
       leading: Transform.scale(
         scale: 1.5,
         child: Checkbox(
@@ -40,9 +41,23 @@ class _aTaskState extends State<aTask> {
             : TextStyle(
                 fontFamily: 'Comics', fontSize: 15, color: Color(0xff2A3642)),
       ),
-      trailing: Container(
-        width: 30,
-        color: Color(0xffD25656),
+      subtitle: Text(
+        DateFormat('jm').format(date), //date format with am,pm
+        style: TextStyle(
+          fontFamily: 'Comics',
+          fontSize: 12,
+        ),
+      ),
+      trailing: Transform.translate(
+        offset: Offset(20, 0),
+        child: Container(
+          decoration: BoxDecoration(
+              color: conPriorityR,
+              borderRadius: BorderRadius.all(
+                Radius.circular(5),
+              )),
+          width: 15,
+        ),
       ),
     );
   }

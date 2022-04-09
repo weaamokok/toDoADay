@@ -3,9 +3,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import '../elements/const.dart';
 import '../elements/widgets.dart';
+import '../elements/widgets/addingTodo.dart';
 import '../elements/widgets/tasksList.dart';
 
 //TODO refactor the screen
@@ -86,15 +88,18 @@ class _TasksScreenState extends State<TasksScreen> {
                   child: Stack(
                     children: [
                       checkLists(),
-                      Align(
-                        alignment: Alignment.bottomRight,
+                      Transform.translate(
+                        offset: Offset(340, 550),
                         child: FloatingActionButton(
                             backgroundColor: conPrimaryG,
                             child: Icon(
                               Icons.add_rounded,
                               size: 35,
                             ),
-                            onPressed: () {}),
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context, builder: buildBottomSheet);
+                            }),
                       )
                     ],
                   ) //here goes the Empty List or the checkList
