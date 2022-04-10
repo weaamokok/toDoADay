@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:to_do_a_day/elements/widgets.dart';
 // ignore: unnecessary_import
 
 import '../const.dart';
@@ -47,11 +50,43 @@ Widget buildBottomSheet(BuildContext context) => Container(
                     width: 300,
                     // ignore: prefer_const_constructors
                     child: TextField(
+                      decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: conPrimaryG.withOpacity(.6))),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: conPrimaryG.withOpacity(.2)))),
                       autofocus: true,
                     )),
               )
             ],
           ),
+          SizedBox(
+            height: 35,
+          ),
+          Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0),
+                child: Text(
+                  'priority',
+                  style: TextStyle(
+                      fontSize: 16, fontFamily: 'Comics', color: conPrimaryB),
+                ),
+              ),
+              priorityBox(conPriorityR, 20),
+              priorityBox(conPriorityY, 60),
+              priorityBox(conPriorityG, 100)
+            ],
+          ),
+          Divider(
+            indent: 50,
+            endIndent: 40,
+            height: 80,
+            thickness: 1,
+            color: Color(0xff8B929D).withOpacity(.2),
+          )
         ],
       ),
     ));

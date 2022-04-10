@@ -43,3 +43,38 @@ Widget EmptyList = Column(
     ),
   ],
 );
+
+//here priority Box widget that goes in the bottom sheet//need to set Gesture
+class priorityBox extends StatelessWidget {
+  final Color boxColor;
+  final double margining;
+  priorityBox(@required Color this.boxColor, this.margining);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+          margin: EdgeInsets.only(right: margining),
+          width: 35,
+          height: 35,
+          decoration: BoxDecoration(
+              border: Border.all(color: boxColor, width: 1.5),
+              borderRadius: BorderRadius.all(Radius.circular(5))),
+          child: Container(
+              margin: EdgeInsets.all(2),
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                  color: boxColor,
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xff).withOpacity(.1),
+                        spreadRadius: 1,
+                        blurRadius: 14,
+                        offset: Offset(1, 1))
+                  ]))),
+    );
+  }
+}
