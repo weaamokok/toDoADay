@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 Color conPrimaryY = Color(0xffF3C623);
 Color conPrimaryB = Color(0xff2A3642);
 Color conPrimaryG = Color(0xff127681);
-Color conPriorityR = Color(0xffD25656);
-Color conPriorityY = Color(0xffCFC146);
-Color conPriorityG = Color(0xff58A14C);
+//priority colors
+Color conActPriorityR = Color(0xffD25656);
+Color conInActPriorityR = Color(0xffD25656).withOpacity(.5);
+Color conActPriorityY = Color(0xffCFC146);
+Color conInActPriorityY = Color(0xffCFC146).withOpacity(.5);
+Color conActPriorityG = Color(0xff58A14C);
+Color conInActPriorityG = Color(0xff58A14C).withOpacity(.5);
 TextStyle conToday = TextStyle(
     color: Colors.white,
     fontFamily: 'ComicsB',

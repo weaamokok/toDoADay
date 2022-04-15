@@ -45,36 +45,84 @@ Widget EmptyList = Column(
 );
 
 //here priority Box widget that goes in the bottom sheet//need to set Gesture
-class priorityBox extends StatelessWidget {
-  final Color boxColor;
+class priorityBox extends StatefulWidget {
+  Color boxColor;
   final double margining;
-  priorityBox(@required Color this.boxColor, this.margining);
+  int priority;
+  priorityBox(@required Color this.boxColor, this.margining, this.priority);
+
+  @override
+  State<priorityBox> createState() => _priorityBoxState();
+}
+
+class _priorityBoxState extends State<priorityBox> {
+  bool selected = false;
+  void selectionColor(int priority) {
+    //1is green 2 is yellow 3 is red
+
+    if (priority == 1) {
+      //if green
+      if (widget.boxColor == conActPriorityG) {
+        print(widget.boxColor);
+
+        widget.boxColor = conInActPriorityG;
+      } else {
+        widget.boxColor = conActPriorityG;
+        print('fuck');
+      }
+    }
+    if (priority == 2) {
+      print(widget.boxColor);
+      //if yellow
+      if (widget.boxColor == conActPriorityY) {
+        widget.boxColor = conInActPriorityY;
+      } else {
+        widget.boxColor = conActPriorityY;
+      }
+    }
+    if (priority == 3) {
+      print('fuck');
+      //if red
+      if (widget.boxColor == conActPriorityR) {
+        widget.boxColor = conInActPriorityR;
+      } else {
+        widget.boxColor = conActPriorityR;
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
-      child: Container(
-          margin: EdgeInsets.only(right: margining),
-          width: 35,
-          height: 35,
-          decoration: BoxDecoration(
-              border: Border.all(color: boxColor, width: 1.5),
-              borderRadius: BorderRadius.all(Radius.circular(5))),
-          child: Container(
-              margin: EdgeInsets.all(2),
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                  color: boxColor,
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color(0xff).withOpacity(.1),
-                        spreadRadius: 1,
-                        blurRadius: 14,
-                        offset: Offset(1, 1))
-                  ]))),
+      child: GestureDetector(
+        onTap: () => {
+          setState(() {
+            selectionColor(widget.priority);
+          })
+        },
+        child: Container(
+            margin: EdgeInsets.only(right: widget.margining),
+            width: 35,
+            height: 35,
+            decoration: BoxDecoration(
+                border: Border.all(color: widget.boxColor, width: 1.5),
+                borderRadius: BorderRadius.all(Radius.circular(5))),
+            child: Container(
+                margin: EdgeInsets.all(2),
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                    color: widget.boxColor,
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Color(0xff).withOpacity(.1),
+                          spreadRadius: 1,
+                          blurRadius: 14,
+                          offset: Offset(1, 1))
+                    ]))),
+      ),
     );
   }
 }

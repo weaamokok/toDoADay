@@ -8,6 +8,9 @@ import 'package:to_do_a_day/elements/widgets.dart';
 
 import '../const.dart';
 
+Color gPriority = conActPriorityG;
+Color yPriority = conActPriorityY;
+Color rPriority = conActPriorityR;
 Widget buildBottomSheet(BuildContext context) => Container(
     color: Color(0xff757575),
     child: Container(
@@ -75,9 +78,9 @@ Widget buildBottomSheet(BuildContext context) => Container(
                       fontSize: 16, fontFamily: 'Comics', color: conPrimaryB),
                 ),
               ),
-              priorityBox(conPriorityR, 20),
-              priorityBox(conPriorityY, 60),
-              priorityBox(conPriorityG, 100)
+              priorityBox(rPriority, 20, 3),
+              priorityBox(yPriority, 60, 2),
+              priorityBox(gPriority, 100, 1)
             ],
           ),
           Divider(

@@ -52,7 +52,7 @@ class _aTaskState extends State<aTask> {
         offset: Offset(20, 0),
         child: Container(
           decoration: BoxDecoration(
-              color: conPriorityR,
+              color: conActPriorityR,
               borderRadius: BorderRadius.all(
                 Radius.circular(5),
               )),
