@@ -3,44 +3,29 @@ import 'package:flutter/material.dart';
 import '../const.dart';
 import 'package:intl/intl.dart';
 
+String todo = 'bake a cake';
+DateTime date = new DateTime.now();
+
 class aTask extends StatefulWidget {
   @override
   State<aTask> createState() => _aTaskState();
 }
 
 class _aTaskState extends State<aTask> {
-  bool c = false;
-
-  String todo = 'bake a cake';
-  DateTime date = new DateTime.now();
-
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Transform.scale(
         scale: 1.5,
-        child: Checkbox(
-            fillColor:
-                MaterialStateColor.resolveWith((states) => Color(0xffC4C4C4)),
-            value: c,
-            checkColor: conPrimaryB,
-            onChanged: (value) {
-              setState(() {
-                c = value!;
-              });
-            }),
+        child: taskCheckBox(isChecked),
       ),
-      title: Text(
-        todo,
-        style: c
-            ? TextStyle(
-                decoration: TextDecoration.lineThrough,
-                fontFamily: 'Comics',
-                fontSize: 15,
-                color: Color(0xff2A3642))
-            : TextStyle(
-                fontFamily: 'Comics', fontSize: 15, color: Color(0xff2A3642)),
-      ),
+      title: Text(todo,
+          style: TextStyle(
+              decoration: isChecked ? TextDecoration.lineThrough : null,
+              fontFamily: 'Comics',
+              fontSize: 15,
+              color: Color(0xff2A3642))),
       subtitle: Text(
         DateFormat('jm').format(date), //date format with am,pm
         style: TextStyle(
@@ -60,5 +45,21 @@ class _aTaskState extends State<aTask> {
         ),
       ),
     );
+  }
+}
+
+class taskCheckBox extends StatelessWidget {
+  final bool checkboxState;
+  taskCheckBox(this.checkboxState);
+
+  Widget build(BuildContext context) {
+    return Checkbox(
+        fillColor:
+            MaterialStateColor.resolveWith((states) => Color(0xffC4C4C4)),
+        value: checkboxState,
+        checkColor: conPrimaryB,
+        onChanged: (value) {
+          // checkboxState= value;
+        });
   }
 }

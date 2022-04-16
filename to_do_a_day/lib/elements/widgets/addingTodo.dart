@@ -11,6 +11,44 @@ import '../const.dart';
 Color gPriority = conActPriorityG;
 Color yPriority = conActPriorityY;
 Color rPriority = conActPriorityR;
+void selectionColor(int priority) {
+  //1is green 2 is yellow 3 is red
+
+  if (priority == 1) {
+    //if green
+    if (gPriority == conActPriorityG) {
+      print(gPriority);
+
+      gPriority = conInActPriorityG;
+      yPriority = conActPriorityY;
+      rPriority = conActPriorityR;
+    } else {
+      gPriority = conActPriorityG;
+    }
+  }
+  if (priority == 2) {
+    //if yellow
+    if (yPriority == conActPriorityY) {
+      yPriority = conInActPriorityY;
+      gPriority = conActPriorityG;
+      rPriority = conActPriorityR;
+    } else {
+      yPriority = conActPriorityY;
+    }
+  }
+  if (priority == 3) {
+    print('fuck');
+    //if red
+    if (rPriority == conActPriorityR) {
+      rPriority = conInActPriorityR;
+      yPriority = conActPriorityY;
+      gPriority = conActPriorityG;
+    } else {
+      rPriority = conActPriorityR;
+    }
+  }
+}
+
 Widget buildBottomSheet(BuildContext context) => Container(
     color: Color(0xff757575),
     child: Container(
@@ -68,21 +106,7 @@ Widget buildBottomSheet(BuildContext context) => Container(
           SizedBox(
             height: 35,
           ),
-          Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 18.0),
-                child: Text(
-                  'priority',
-                  style: TextStyle(
-                      fontSize: 16, fontFamily: 'Comics', color: conPrimaryB),
-                ),
-              ),
-              priorityBox(rPriority, 20, 3),
-              priorityBox(yPriority, 60, 2),
-              priorityBox(gPriority, 100, 1)
-            ],
-          ),
+          priority(),
           Divider(
             indent: 50,
             endIndent: 40,
@@ -93,3 +117,47 @@ Widget buildBottomSheet(BuildContext context) => Container(
         ],
       ),
     ));
+
+class priority extends StatefulWidget {
+  @override
+  State<priority> createState() => _priorityState();
+}
+
+class _priorityState extends State<priority> {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 18.0),
+          child: Text(
+            'priority',
+            style: TextStyle(
+                fontSize: 16, fontFamily: 'Comics', color: conPrimaryB),
+          ),
+        ),
+        GestureDetector(
+            onTap: () {
+              setState(() {
+                selectionColor(3);
+              });
+            },
+            child: priorityBox(rPriority, 20)),
+        GestureDetector(
+            onTap: () {
+              setState(() {
+                selectionColor(2);
+              });
+            },
+            child: priorityBox(yPriority, 60)),
+        GestureDetector(
+            onTap: () {
+              setState(() {
+                selectionColor(1);
+              });
+            },
+            child: priorityBox(gPriority, 100))
+      ],
+    );
+  }
+}

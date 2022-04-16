@@ -5,11 +5,11 @@ Color conPrimaryB = Color(0xff2A3642);
 Color conPrimaryG = Color(0xff127681);
 //priority colors
 Color conActPriorityR = Color(0xffD25656);
-Color conInActPriorityR = Color(0xffD25656).withOpacity(.5);
+Color conInActPriorityR = Color(0xffD25656).withOpacity(.3);
 Color conActPriorityY = Color(0xffCFC146);
-Color conInActPriorityY = Color(0xffCFC146).withOpacity(.5);
+Color conInActPriorityY = Color(0xffCFC146).withOpacity(.3);
 Color conActPriorityG = Color(0xff58A14C);
-Color conInActPriorityG = Color(0xff58A14C).withOpacity(.5);
+Color conInActPriorityG = Color(0xff58A14C).withOpacity(.3);
 TextStyle conToday = TextStyle(
     color: Colors.white,
     fontFamily: 'ComicsB',
