@@ -8,9 +8,6 @@ import 'package:to_do_a_day/elements/widgets.dart';
 
 import '../const.dart';
 
-Color gPriority = conActPriorityG;
-Color yPriority = conActPriorityY;
-Color rPriority = conActPriorityR;
 void selectionColor(int priority) {
   //1is green 2 is yellow 3 is red
 

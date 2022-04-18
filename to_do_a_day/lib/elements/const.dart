@@ -10,6 +10,9 @@ Color conActPriorityY = Color(0xffCFC146);
 Color conInActPriorityY = Color(0xffCFC146).withOpacity(.3);
 Color conActPriorityG = Color(0xff58A14C);
 Color conInActPriorityG = Color(0xff58A14C).withOpacity(.3);
+Color gPriority = conActPriorityG;
+Color yPriority = conActPriorityY;
+Color rPriority = conActPriorityR;
 TextStyle conToday = TextStyle(
     color: Colors.white,
     fontFamily: 'ComicsB',
@@ -27,3 +30,15 @@ TextStyle conCheckedTodoTextStyle = TextStyle(
     fontFamily: 'Comics',
     fontSize: 15,
     color: Color(0xff2A3642));
+Color priorityColor(int priority) {
+  if (priority == 1) {
+    //if green
+    return conActPriorityG;
+  } else if (priority == 2) {
+    //if yellow
+    return conActPriorityY;
+  } else if (priority == 3) {
+    return conActPriorityR;
+  } else
+    return conActPriorityG;
+}

@@ -6,38 +6,54 @@ import 'package:intl/intl.dart';
 String todo = 'bake a cake';
 DateTime date = new DateTime.now();
 
-class aTask extends StatefulWidget {
-  @override
-  State<aTask> createState() => _aTaskState();
-}
+class aTask extends StatelessWidget {
+  String taskTitle;
+  final bool isChecked;
+  int priority;
+  DateTime? notifi;
+  final Function chechboxCallback;
 
-class _aTaskState extends State<aTask> {
-  bool isChecked = false;
+  aTask(this.taskTitle, this.isChecked, this.priority, this.notifi,
+      this.chechboxCallback);
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Transform.scale(
         scale: 1.5,
-        child: taskCheckBox(isChecked),
+        child: Checkbox(
+            fillColor:
+                MaterialStateColor.resolveWith((states) => Color(0xffC4C4C4)),
+            value: isChecked,
+            checkColor: conPrimaryB,
+            onChanged: (value) {
+              chechboxCallback(value);
+            }
+            //(value) {
+
+            // }
+            ),
       ),
-      title: Text(todo,
+      title: Text(taskTitle,
           style: TextStyle(
               decoration: isChecked ? TextDecoration.lineThrough : null,
               fontFamily: 'Comics',
               fontSize: 15,
               color: Color(0xff2A3642))),
-      subtitle: Text(
-        DateFormat('jm').format(date), //date format with am,pm
-        style: TextStyle(
-          fontFamily: 'Comics',
-          fontSize: 12,
-        ),
-      ),
+      subtitle: notifi != null
+          ? Text(
+              DateFormat('jm').format(notifi!), //date format with am,pm
+              style: TextStyle(
+                fontFamily: 'Comics',
+                fontSize: 12,
+              ),
+            )
+          : null,
       trailing: Transform.translate(
         offset: Offset(20, 0),
         child: Container(
           decoration: BoxDecoration(
-              color: conActPriorityR,
+              color: priorityColor(priority),
               borderRadius: BorderRadius.all(
                 Radius.circular(5),
               )),
@@ -47,19 +63,8 @@ class _aTaskState extends State<aTask> {
     );
   }
 }
+// (bool checkState) {
+//     setState(() {
+//       isChecked = checkState;
+//     }
 
-class taskCheckBox extends StatelessWidget {
-  final bool checkboxState;
-  taskCheckBox(this.checkboxState);
-
-  Widget build(BuildContext context) {
-    return Checkbox(
-        fillColor:
-            MaterialStateColor.resolveWith((states) => Color(0xffC4C4C4)),
-        value: checkboxState,
-        checkColor: conPrimaryB,
-        onChanged: (value) {
-          // checkboxState= value;
-        });
-  }
-}
