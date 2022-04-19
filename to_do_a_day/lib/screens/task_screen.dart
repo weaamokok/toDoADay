@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do_a_day/elements/module/task.dart';
 import '../elements/const.dart';
 import '../elements/widgets.dart';
 import '../elements/widgets/addingTodo.dart';
@@ -18,7 +19,15 @@ class TasksScreen extends StatefulWidget {
 
 class _TasksScreenState extends State<TasksScreen> {
   DateTime date = new DateTime.now();
-
+  List<Task> tasks = [
+    Task(name: 'buy milk', notifacation: null, priority: 3),
+    Task(
+      name: 'buy ki',
+      notifacation: DateTime.now(),
+      priority: 3,
+    ),
+    Task(name: 'buy lk', notifacation: null, priority: 2),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +96,7 @@ class _TasksScreenState extends State<TasksScreen> {
                           BorderRadius.only(topLeft: Radius.circular(50))),
                   child: Stack(
                     children: [
-                      checkLists(),
+                      checkLists(tasks),
                       Transform.translate(
                         offset: Offset(340, 550),
                         child: FloatingActionButton(
@@ -98,7 +107,10 @@ class _TasksScreenState extends State<TasksScreen> {
                             ),
                             onPressed: () {
                               showModalBottomSheet(
-                                  context: context, builder: buildBottomSheet);
+                                  enableDrag: false,
+                                  isDismissible: false,
+                                  context: context,
+                                  builder: (context) => AddTaskScreen());
                             }),
                       )
                     ],

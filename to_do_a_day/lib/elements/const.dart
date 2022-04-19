@@ -13,6 +13,7 @@ Color conInActPriorityG = Color(0xff58A14C).withOpacity(.3);
 Color gPriority = conActPriorityG;
 Color yPriority = conActPriorityY;
 Color rPriority = conActPriorityR;
+DateTime CurrentDate = new DateTime.now();
 TextStyle conToday = TextStyle(
     color: Colors.white,
     fontFamily: 'ComicsB',
@@ -24,6 +25,8 @@ TextStyle conTodaysDate = TextStyle(
     fontSize: 13,
     fontWeight: FontWeight.normal);
 TextStyle conTodoTextStyle =
+    TextStyle(fontFamily: 'Comics', fontSize: 15, color: Color(0xff2A3642));
+TextStyle connotifacationTimeTextStyle =
     TextStyle(fontFamily: 'Comics', fontSize: 15, color: Color(0xff2A3642));
 TextStyle conCheckedTodoTextStyle = TextStyle(
     decoration: TextDecoration.lineThrough,

@@ -4,6 +4,8 @@ import '../module/task.dart';
 import 'taskTile.dart';
 
 class checkLists extends StatefulWidget {
+  final List<Task> tasks;
+  checkLists(this.tasks);
   @override
   State<checkLists> createState() => _checkListsState();
 }
@@ -12,16 +14,6 @@ class _checkListsState extends State<checkLists> {
   //the list that would handle
   bool? c;
 
-  List<Task> tasks = [
-    Task(name: 'buy milk', notifacation: null, priority: 3),
-    Task(
-      name: 'buy ki',
-      notifacation: DateTime.now(),
-      priority: 3,
-    ),
-    Task(name: 'buy lk', notifacation: null, priority: 2),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,16 +21,16 @@ class _checkListsState extends State<checkLists> {
       child: ListView.builder(
         itemBuilder: (context, index) {
           return aTask(
-              tasks[index].name.toString(),
-              tasks[index].isDone,
-              tasks[index].priority,
-              tasks[index].notifacation, (chechboxState) {
+              widget.tasks[index].name.toString(),
+              widget.tasks[index].isDone,
+              widget.tasks[index].priority,
+              widget.tasks[index].notifacation, (chechboxState) {
             setState(() {
-              tasks[index].toggleDone();
+              widget.tasks[index].toggleDone();
             });
           });
         },
-        itemCount: tasks.length,
+        itemCount: widget.tasks.length,
       ),
     );
   }

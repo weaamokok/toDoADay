@@ -4,7 +4,6 @@ import '../const.dart';
 import 'package:intl/intl.dart';
 
 String todo = 'bake a cake';
-DateTime date = new DateTime.now();
 
 class aTask extends StatelessWidget {
   String taskTitle;
