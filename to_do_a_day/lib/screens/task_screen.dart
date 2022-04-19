@@ -110,7 +110,15 @@ class _TasksScreenState extends State<TasksScreen> {
                                   enableDrag: false,
                                   isDismissible: false,
                                   context: context,
-                                  builder: (context) => AddTaskScreen());
+                                  builder: (context) => AddTaskScreen(
+                                          (newTask, selectedPriority, alarm) {
+                                        setState(() {
+                                          tasks.add(Task(
+                                              name: newTask,
+                                              priority: selectedPriority,
+                                              notifacation: alarm));
+                                        });
+                                      }));
                             }),
                       )
                     ],

@@ -10,6 +10,9 @@ import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 
 import '../const.dart';
 
+String? newTask;
+int? selectedPriority;
+DateTime? alarm;
 void selectionColor(int priority) {
   //1is green 2 is yellow 3 is red
 
@@ -21,6 +24,7 @@ void selectionColor(int priority) {
       gPriority = conInActPriorityG;
       yPriority = conActPriorityY;
       rPriority = conActPriorityR;
+      selectedPriority = 1;
     } else {
       gPriority = conActPriorityG;
     }
@@ -31,10 +35,12 @@ void selectionColor(int priority) {
       yPriority = conInActPriorityY;
       gPriority = conActPriorityG;
       rPriority = conActPriorityR;
+      selectedPriority = 2;
     } else {
       yPriority = conActPriorityY;
     }
   }
+
   if (priority == 3) {
     print('fuck');
     //if red
@@ -42,13 +48,22 @@ void selectionColor(int priority) {
       rPriority = conInActPriorityR;
       yPriority = conActPriorityY;
       gPriority = conActPriorityG;
+      selectedPriority = 3;
     } else {
       rPriority = conActPriorityR;
     }
   }
 }
 
+void resetPriority() {
+  gPriority = conActPriorityG;
+  rPriority = conActPriorityR;
+  yPriority = conActPriorityY;
+}
+
 class AddTaskScreen extends StatefulWidget {
+  final Function addTaskCallback;
+  AddTaskScreen(this.addTaskCallback);
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
 }
@@ -72,6 +87,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             children: [
               FlatButton(
                   onPressed: () {
+                    widget.addTaskCallback(newTask, selectedPriority,
+                        alarmIsSet ? dateTime : null);
+                    resetPriority();
                     Navigator.pop(context);
                   },
                   child: Align(
@@ -103,6 +121,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         width: 300,
                         // ignore: prefer_const_constructors
                         child: TextField(
+                          onChanged: (newText) {
+                            newTask = newText;
+                          },
                           decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -132,10 +153,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     padding: const EdgeInsets.only(left: 18.0),
                     child: Text(
                       'notification',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Comics',
-                          color: conPrimaryB),
+                      style:
+                          connotifacationTimeTextStyle.copyWith(fontSize: 16),
                     ),
                   ),
                   Align(
@@ -145,11 +164,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           onChanged: (value) {
                             setState(() {
                               alarmIsSet = value;
-                              if (value == true) {}
                             });
                           })),
                   Visibility(
-                    visible: true,
+                    visible: alarmIsSet,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 35.0),
                       child: TimePickerSpinner(
