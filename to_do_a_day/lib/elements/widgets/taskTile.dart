@@ -19,8 +19,8 @@ class aTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          bottom: notifi != null ? Spaceing = 0 : Spaceing = 12),
+      padding: EdgeInsets.symmetric(
+          vertical: notifi != null ? Spaceing = 0 : Spaceing = 10),
       child: ListTile(
         leading: Transform.scale(
           scale: 1.5,
