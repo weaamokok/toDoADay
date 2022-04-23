@@ -13,3 +13,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+/////to do fix the padding between each task when no alarm

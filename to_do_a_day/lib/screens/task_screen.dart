@@ -115,7 +115,9 @@ class _TasksScreenState extends State<TasksScreen> {
                                         setState(() {
                                           tasks.add(Task(
                                               name: newTask,
-                                              priority: selectedPriority,
+                                              priority: selectedPriority == null
+                                                  ? 1
+                                                  : selectedPriority,
                                               notifacation: alarm));
                                         });
                                       }));
