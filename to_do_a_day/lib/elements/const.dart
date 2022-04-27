@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 Color conPrimaryY = Color(0xffF3C623);
 Color conPrimaryB = Color(0xff2A3642);
@@ -33,6 +34,16 @@ TextStyle conCheckedTodoTextStyle = TextStyle(
     fontFamily: 'Comics',
     fontSize: 15,
     color: Color(0xff2A3642));
+Text displayedDate = Text(
+  DateFormat('EEEE')
+          .format(CurrentDate)
+          .substring(0, 3) + //date fromat is from intl package
+      ',' +
+      DateFormat('d').format(CurrentDate) +
+      ' ' +
+      DateFormat('MMMM').format(CurrentDate),
+  style: conTodaysDate,
+);
 Color priorityColor(int priority) {
   if (priority == 1) {
     //if green

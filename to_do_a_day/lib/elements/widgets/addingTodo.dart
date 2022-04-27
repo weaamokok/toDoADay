@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_a_day/elements/module/task_data.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_a_day/elements/widgets.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
@@ -10,8 +8,8 @@ import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 
 import '../const.dart';
 
-String? newTask;
-int? selectedPriority;
+String newTask = '';
+int selectedPriority = 1;
 DateTime? alarm;
 void selectionColor(int priority) {
   //1is green 2 is yellow 3 is red
@@ -42,7 +40,6 @@ void selectionColor(int priority) {
   }
 
   if (priority == 3) {
-    print('fuck');
     //if red
     if (rPriority == conActPriorityR) {
       rPriority = conInActPriorityR;
@@ -62,8 +59,6 @@ void resetPriority() {
 }
 
 class AddTaskScreen extends StatefulWidget {
-  final Function addTaskCallback;
-  AddTaskScreen(this.addTaskCallback);
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
 }
@@ -87,8 +82,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             children: [
               FlatButton(
                   onPressed: () {
-                    widget.addTaskCallback(newTask, selectedPriority,
+                    Provider.of<TaskData>(context, listen: false).addTask(
+                        newTask,
+                        false,
+                        selectedPriority,
                         alarmIsSet ? dateTime : null);
+
                     resetPriority();
                     Navigator.pop(context);
                   },

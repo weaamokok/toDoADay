@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_a_day/elements/module/task.dart';
+import 'package:to_do_a_day/elements/widgets/toDosContainer.dart';
 import '../elements/const.dart';
 import '../elements/widgets.dart';
 import '../elements/widgets/addingTodo.dart';
@@ -18,16 +19,6 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  DateTime date = new DateTime.now();
-  List<Task> tasks = [
-    Task(name: 'buy milk', notifacation: null, priority: 3),
-    Task(
-      name: 'buy ki',
-      notifacation: DateTime.now(),
-      priority: 3,
-    ),
-    Task(name: 'buy lk', notifacation: null, priority: 2),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,15 +61,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   SizedBox(
                     height: 9,
                   ),
-                  Text(
-                    DateFormat('EEEE').format(date).substring(
-                            0, 3) + //date fromat is from intl package
-                        ',' +
-                        DateFormat('d').format(date) +
-                        ' ' +
-                        DateFormat('MMMM').format(date),
-                    style: conTodaysDate,
-                  ),
+                  displayedDate,
                   //today's date
                 ],
               ),
@@ -86,47 +69,7 @@ class _TasksScreenState extends State<TasksScreen> {
             SizedBox(
               height: 25,
             ),
-            Expanded(
-              child: Container(
-                  //the to dos  container
-
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(50))),
-                  child: Stack(
-                    children: [
-                      checkLists(tasks),
-                      Transform.translate(
-                        offset: Offset(340, 550),
-                        child: FloatingActionButton(
-                            backgroundColor: conPrimaryG,
-                            child: Icon(
-                              Icons.add_rounded,
-                              size: 35,
-                            ),
-                            onPressed: () {
-                              showModalBottomSheet(
-                                  enableDrag: false,
-                                  isDismissible: false,
-                                  context: context,
-                                  builder: (context) => AddTaskScreen(
-                                          (newTask, selectedPriority, alarm) {
-                                        setState(() {
-                                          tasks.add(Task(
-                                              name: newTask,
-                                              priority: selectedPriority == null
-                                                  ? 1
-                                                  : selectedPriority,
-                                              notifacation: alarm));
-                                        });
-                                      }));
-                            }),
-                      )
-                    ],
-                  ) //here goes the Empty List or the checkList
-                  ),
-            )
+            Expanded(child: todosContainer())
           ],
         ),
       ),
