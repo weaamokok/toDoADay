@@ -14,11 +14,10 @@ class checkLists extends StatelessWidget {
         builder: (context, taskData, child) {
           return ListView.builder(
             itemBuilder: (context, index) {
-              return aTask(
-                  taskData.tasks[index].name.toString(),
-                  taskData.tasks[index].isDone,
-                  taskData.tasks[index].priority,
-                  taskData.tasks[index].notifacation, (chechboxState) {
+              final task = taskData.tasks[index];
+              return aTask(task.name.toString(), task.isDone, task.priority,
+                  task.notifacation, (chechboxState) {
+                taskData.updateTask(task);
                 // setState(() {
                 //   widget.tasks[index].toggleDone();
                 // });
