@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../const.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do_a_day/elements/module/task_data.dart';
+
+import '../module/task.dart';
 
 String todo = 'bake a cake';
 double Spaceing = 0;
@@ -12,9 +16,11 @@ class aTask extends StatelessWidget {
   int priority = 1;
   DateTime? notifi;
   final Function chechboxCallback;
-
+  Task task;
+//---------------------------
   aTask(this.taskTitle, this.isChecked, this.priority, this.notifi,
-      this.chechboxCallback);
+      this.chechboxCallback, this.task);
+//--------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +28,9 @@ class aTask extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           vertical: notifi != null ? Spaceing = 0 : Spaceing = 10),
       child: ListTile(
+        onLongPress: () {
+          Provider.of<TaskData>(context, listen: false).deletingTask(task);
+        },
         leading: Transform.scale(
           scale: 1.5,
           child: Checkbox(

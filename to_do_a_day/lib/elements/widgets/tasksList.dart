@@ -21,7 +21,7 @@ class checkLists extends StatelessWidget {
                 // setState(() {
                 //   widget.tasks[index].toggleDone();
                 // });
-              });
+              }, taskData.tasks[index]);
             },
             itemCount: taskData.tasks.length,
           );

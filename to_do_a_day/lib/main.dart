@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/module/task_data.dart';
+import 'screens/archiveScreen.dart';
 import 'screens/task_screen.dart';
 import 'elements/module/task_data.dart';
 
@@ -14,7 +15,13 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => TaskData(),
       child: MaterialApp(
-        home: TasksScreen(),
+        initialRoute: '/',
+        routes: {
+          // When navigating to the "/" route, build the FirstScreen widget.
+          '/': (context) => TasksScreen(),
+          // When navigating to the "/second" route, build the SecondScreen widget.
+          '/arc': (context) => ArchiveScreen(),
+        },
       ),
     );
   }

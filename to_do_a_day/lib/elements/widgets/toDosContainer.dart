@@ -5,6 +5,7 @@ import 'package:to_do_a_day/elements/widgets/tasksList.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/module/task_data.dart';
 import '../const.dart';
+import 'package:empty_widget/empty_widget.dart';
 
 class todosContainer extends StatelessWidget {
   @override
@@ -17,7 +18,29 @@ class todosContainer extends StatelessWidget {
             borderRadius: BorderRadius.only(topLeft: Radius.circular(50))),
         child: Stack(
           children: [
-            checkLists(),
+            Provider.of<TaskData>(context, listen: true).isEmptyList()
+                ? checkLists()
+                : Center(
+                    child: Column(children: [
+                      SizedBox(
+                        height: 80,
+                      ),
+                      Image.asset(
+                        'images/Stuck at Home - To Do List.png',
+                        width: 209,
+                        height: 209,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'add your to-dos for today,\n remember yours to-dos will be \n archived when the day is over',
+                        textAlign: TextAlign.center,
+                        style: conTodoTextStyle.copyWith(
+                            color: Color(0xff2A3642).withOpacity(0.5)),
+                      )
+                    ]),
+                  ),
             Transform.translate(
               offset: Offset(340, 550),
               child: FloatingActionButton(

@@ -13,12 +13,7 @@ import '../elements/widgets/addingTodo.dart';
 import '../elements/widgets/tasksList.dart';
 
 //TODO refactor the screen
-class TasksScreen extends StatefulWidget {
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +25,13 @@ class _TasksScreenState extends State<TasksScreen> {
           size: 30,
         ),
         actions: [
-          Icon(
-            Icons.help_rounded,
+          IconButton(
+            icon: Icon(Icons.help_rounded),
             color: Colors.white,
-            size: 30,
+            iconSize: 30,
+            onPressed: () {
+              Navigator.pushNamed(context, '/arc');
+            },
           ),
           SizedBox(
             width: 10,
