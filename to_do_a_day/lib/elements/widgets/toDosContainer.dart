@@ -15,7 +15,14 @@ class todosContainer extends StatelessWidget {
 
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(50))),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(50)),
+            boxShadow: [
+              BoxShadow(
+                  color: Color(0xff).withOpacity(.1),
+                  spreadRadius: 28,
+                  blurRadius: 10,
+                  offset: Offset(14, 27))
+            ]),
         child: Stack(
           children: [
             Provider.of<TaskData>(context, listen: true).isEmptyList()
