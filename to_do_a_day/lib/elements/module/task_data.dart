@@ -12,10 +12,16 @@ class TaskData extends ChangeNotifier {
     ),
     Task(name: 'buy lk', notifacation: null, priority: 2),
   ];
+  List<List<Task>> _taskArchive = [];
 
   UnmodifiableListView<Task> get tasks {
     return UnmodifiableListView(
         _tasks); //to prevent any modifiing on the list of tasks
+  }
+
+  UnmodifiableListView<List<Task>> get archivesTasks {
+    return UnmodifiableListView(
+        _taskArchive); //to prevent any modifiing on the list of tasks
   }
 
   void addTask(String name, bool isDone, int priority, DateTime? notifacation) {
@@ -25,6 +31,13 @@ class TaskData extends ChangeNotifier {
         isDone: false,
         notifacation: notifacation);
     _tasks.add(task);
+    notifyListeners();
+  }
+
+  void archivingTheDay() {
+    _taskArchive.add(_tasks);
+    _tasks.clear();
+    print(_taskArchive.isEmpty);
     notifyListeners();
   }
 

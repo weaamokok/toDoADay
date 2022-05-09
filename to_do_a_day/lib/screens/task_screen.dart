@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/module/task.dart';
 import 'package:to_do_a_day/elements/widgets/toDosContainer.dart';
 import '../elements/const.dart';
+import '../elements/module/task_data.dart';
 import '../elements/widgets.dart';
 import '../elements/widgets/addingTodo.dart';
 import '../elements/widgets/tasksList.dart';
@@ -162,7 +164,9 @@ class _TasksScreenState extends State<TasksScreen>
                           color: Colors.white,
                           iconSize: 30,
                           onPressed: () {
-                            Navigator.pushNamed(context, '/arc');
+                            // Navigator.pushNamed(context, '/arc');
+                            Provider.of<TaskData>(context, listen: false)
+                                .archivingTheDay();
                           },
                         ),
                       )
