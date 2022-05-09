@@ -5,6 +5,7 @@ import 'taskTile.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/module/task_data.dart';
 
+//TODO find way to make the listing in the archive, u'll likely have to create another one to desplay the archive since th achive will list a list of task list;)
 class checkLists extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
