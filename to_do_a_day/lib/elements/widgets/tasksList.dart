@@ -19,9 +19,6 @@ class checkLists extends StatelessWidget {
               return aTask(task.name.toString(), task.isDone, task.priority,
                   task.notifacation, (chechboxState) {
                 taskData.updateTask(task);
-                // setState(() {
-                //   widget.tasks[index].toggleDone();
-                // });
               }, taskData.tasks[index]);
             },
             itemCount: taskData.tasks.length,

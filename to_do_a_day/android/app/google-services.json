@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "834304897673",
+    "project_id": "todoaday-becad",
+    "storage_bucket": "todoaday-becad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834304897673:android:1f333f4229cc304da8cc58",
+        "android_client_info": {
+          "package_name": "com.weam.okok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834304897673-3ta1u35j1moifjdl5l30ghi604g6qjhr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt9VFndUHTp5lNSd1cbfkkQEzlh7YHwTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834304897673-3ta1u35j1moifjdl5l30ghi604g6qjhr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

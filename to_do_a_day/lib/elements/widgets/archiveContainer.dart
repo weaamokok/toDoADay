@@ -7,7 +7,10 @@ import 'package:to_do_a_day/elements/module/task_data.dart';
 import '../const.dart';
 import 'package:empty_widget/empty_widget.dart';
 
+import 'archiveList.dart';
+
 class archiveContainer extends StatelessWidget {
+  final List<Task> listOftasks = TaskData().tasks;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +24,10 @@ class archiveContainer extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<TaskData>(context, listen: false)
+                        .archivingTheDay();
+                  },
                   child: Container(
                     margin: EdgeInsets.all(15),
                     padding: EdgeInsets.only(top: 6),
@@ -38,8 +44,8 @@ class archiveContainer extends StatelessWidget {
                     ),
                   )),
             ),
-            Provider.of<TaskData>(context, listen: true).isEmptyList()
-                ? checkLists()
+            Provider.of<TaskData>(context, listen: true).isArchiveEmpty()
+                ? ArchiveLists()
                 : Center(
                     child: Column(children: [
                       SizedBox(

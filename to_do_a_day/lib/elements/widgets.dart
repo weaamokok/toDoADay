@@ -57,39 +57,6 @@ class priorityBox extends StatefulWidget {
 
 class _priorityBoxState extends State<priorityBox> {
   bool selected = false;
-  // void selectionColor(int priority) {
-  //   //1is green 2 is yellow 3 is red
-
-  //   if (priority == 1) {
-  //     //if green
-  //     if (widget.boxColor == conActPriorityG) {
-  //       print(widget.boxColor);
-
-  //       widget.boxColor = conInActPriorityG;
-  //     } else {
-  //       widget.boxColor = conActPriorityG;
-  //       print('fuck');
-  //     }
-  //   }
-  //   if (priority == 2) {
-  //     print(widget.boxColor);
-  //     //if yellow
-  //     if (widget.boxColor == conActPriorityY) {
-  //       widget.boxColor = conInActPriorityY;
-  //     } else {
-  //       widget.boxColor = conActPriorityY;
-  //     }
-  //   }
-  //   if (priority == 3) {
-  //     print('fuck');
-  //     //if red
-  //     if (widget.boxColor == conActPriorityR) {
-  //       widget.boxColor = conInActPriorityR;
-  //     } else {
-  //       widget.boxColor = conActPriorityR;
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -118,4 +85,64 @@ class _priorityBoxState extends State<priorityBox> {
                   ]))),
     );
   }
+}
+
+//the text feilds for sign in and sign up
+Widget txtFeild(String label, TextEditingController controller2, int type) {
+  return Container(
+    width: 274,
+    height: 45,
+    child: TextField(
+      controller: controller2,
+      obscureText: type == 3 ? true : false,
+      style: conTodoTextStyle.copyWith(color: conPrimaryB, fontSize: 12),
+      decoration: fieldDecor.copyWith(hintText: label),
+      keyboardType: type == 1 ? TextInputType.emailAddress : TextInputType.text,
+      onChanged: (value) {},
+    ),
+  );
+}
+
+//standerd button
+class RoundedButton extends StatelessWidget {
+  final Color bcolor;
+  final Widget child;
+  RoundedButton(this.bcolor, this.child);
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      child: Container(
+          child: Center(child: child),
+          width: 274,
+          height: 45,
+          margin: EdgeInsets.only(top: 20),
+          decoration: BoxDecoration(
+              color: bcolor,
+              border: bcolor == yellow
+                  ? null
+                  : Border.all(
+                      color: Color(0xffDFE1E3).withOpacity(.7), width: 1.5),
+              borderRadius: BorderRadius.all(Radius.circular(50)))),
+    );
+  }
+}
+
+//buttons for third party log
+Widget RoundedButtonForGoogleAndFacebookSign(String text, Icon icon) {
+  return RoundedButton(
+      Colors.white,
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          icon,
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            text,
+            style: conTodoTextStyle.copyWith(
+                fontSize: 14, color: conPrimaryB.withOpacity(.6)),
+          )
+        ],
+      ));
 }

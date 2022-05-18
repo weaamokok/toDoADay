@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'task.dart';
 import 'dart:collection';
+import 'dart:io';
 
 class TaskData extends ChangeNotifier {
+  // ignore: prefer_final_fields
   List<Task> _tasks = [
     Task(name: 'buy milk', notifacation: null, priority: 3),
     Task(
@@ -12,7 +14,28 @@ class TaskData extends ChangeNotifier {
     ),
     Task(name: 'buy lk', notifacation: null, priority: 2),
   ];
-  List<List<Task>> _taskArchive = [];
+  List<List<Task>> _taskArchive = [
+    [
+      Task(name: 'buy milk', notifacation: null, priority: 3),
+      Task(
+        name: 'buy ki',
+        notifacation: DateTime.now(),
+        priority: 3,
+      ),
+      Task(name: 'buy lk', notifacation: null, priority: 2),
+    ],
+    [
+      Task(name: 'buy milk', notifacation: null, priority: 3),
+      Task(
+        name: 'buy ki',
+        notifacation: DateTime.now(),
+        priority: 3,
+      ),
+      Task(name: 'buy lk', notifacation: null, priority: 2),
+    ],
+  ];
+
+  // List<List<Task>> deserializedLists=_taskArchive.;
 
   UnmodifiableListView<Task> get tasks {
     return UnmodifiableListView(
@@ -36,9 +59,20 @@ class TaskData extends ChangeNotifier {
 
   void archivingTheDay() {
     _taskArchive.add(_tasks);
-    _tasks.clear();
-    print(_taskArchive.isEmpty);
+    print(archivesTasks
+        .map((taskList) => taskList[0]) //قاعد يخش لاول تاسك من كل ليست
+        .map((tasks) => tasks.name));
+    print(archivesTasks
+        .map((taskList) => taskList)
+        .map((tasks) => tasks)
+        .toList()
+        .length);
+    // _tasks.clear();
     notifyListeners();
+  }
+
+  bool isArchiveEmpty() {
+    return archivesTasks.iterator.moveNext();
   }
 
   void updateTask(Task task) {
@@ -53,6 +87,15 @@ class TaskData extends ChangeNotifier {
 
   bool isEmptyList() {
     return _tasks.iterator.moveNext();
-    ;
+  }
+
+  int archiveLen() {
+    int listLen = archivesTasks
+        .map((taskList) => taskList)
+        .map((tasks) => tasks)
+        .toList()
+        .length;
+    notifyListeners();
+    return listLen;
   }
 }

@@ -164,9 +164,9 @@ class _TasksScreenState extends State<TasksScreen>
                           color: Colors.white,
                           iconSize: 30,
                           onPressed: () {
-                            // Navigator.pushNamed(context, '/arc');
-                            Provider.of<TaskData>(context, listen: false)
-                                .archivingTheDay();
+                            Navigator.pushNamed(context, '/arc');
+                            // Provider.of<TaskData>(context, listen: false)
+                            //     .archivingTheDay();
                           },
                         ),
                       )
