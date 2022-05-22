@@ -34,10 +34,12 @@ class aTask extends StatelessWidget {
         leading: Transform.scale(
           scale: 1.5,
           child: Checkbox(
+              side: BorderSide(color: conPrimaryB.withOpacity(.4)),
+              activeColor: conPrimaryB,
               fillColor:
-                  MaterialStateColor.resolveWith((states) => Color(0xffC4C4C4)),
+                  MaterialStateColor.resolveWith((states) => Colors.white),
               value: isChecked,
-              checkColor: conPrimaryB,
+              checkColor: yellow,
               onChanged: (value) {
                 chechboxCallback(value);
               }
@@ -48,6 +50,9 @@ class aTask extends StatelessWidget {
         ),
         title: Text(taskTitle,
             style: TextStyle(
+                decorationColor: yellow,
+                decorationStyle: TextDecorationStyle.wavy,
+                decorationThickness: 1.5,
                 decoration: isChecked ? TextDecoration.lineThrough : null,
                 fontFamily: 'Comics',
                 fontSize: 15,

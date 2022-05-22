@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function validation(){
+            if(document.forms['form']['f1'].value.length==0){
+                alert('empty name');
+               
+            }
+            if(document.forms['form']['f2'].value.length==0){
+                alert('empty age');
+                
+            }if(document.forms['form']['f3'].value.length==0){
+                alert('empty phone');
+               
+            }
+        }
+    </script>
+    <form name="form" action="" onsubmit="return validation()">
+        name:
+    <input type="text" name="f1">
+    age:
+    <input type="text" name="f2">
+    phone:
+    <input type="text" name="f3">
+    <button type="submit"></button>
+   
+    </form>
+</body>
+</html>

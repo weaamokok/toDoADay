@@ -5,14 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icon.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/module/task.dart';
 import 'package:to_do_a_day/elements/widgets/toDosContainer.dart';
 import '../elements/const.dart';
+import '../elements/module/signing.dart';
 import '../elements/module/task_data.dart';
 import '../elements/widgets.dart';
 import '../elements/widgets/addingTodo.dart';
 import '../elements/widgets/tasksList.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 //TODO refactor the screen
 class TasksScreen extends StatefulWidget {
@@ -27,10 +31,12 @@ class _TasksScreenState extends State<TasksScreen>
   final Duration duration = const Duration(milliseconds: 300);
   AnimationController? _controller;
   Animation<double>? _scaleAnimation;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    Provider.of<siggning>(context, listen: false).getCurrentUser();
     _controller = AnimationController(vsync: this, duration: duration);
     _scaleAnimation = Tween<double>(
       begin: 1,
@@ -90,6 +96,7 @@ class _TasksScreenState extends State<TasksScreen>
             child: Row(
               children: [
                 CircleAvatar(
+                  //Avatar
                   backgroundColor: Color(0xff).withOpacity(0),
                   radius: 50,
                   child: Image.asset(
@@ -101,9 +108,21 @@ class _TasksScreenState extends State<TasksScreen>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Weaam okok', style: conToday.copyWith(fontSize: 17)),
                     Text(
-                      'weamokok@gmail.com',
+                        //UserName
+                        Provider.of<siggning>(context, listen: false)
+                            .loggedUser!
+                            .email
+                            .toString()
+                            .split('@')
+                            .first,
+                        style: conToday.copyWith(fontSize: 17)),
+                    Text(
+                      //Email
+                      Provider.of<siggning>(context, listen: false)
+                          .loggedUser!
+                          .email
+                          .toString(),
                       style: conTodaysDate.copyWith(
                           color: Colors.white.withOpacity(0.8)),
                     )
@@ -111,7 +130,13 @@ class _TasksScreenState extends State<TasksScreen>
                 )
               ],
             ),
-          )
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          sidemenuNavs(LineIcons.clipboardList, 'My to-dos', () {
+            Navigator.pushNamed(context, '/arc');
+          })
         ],
       ),
     );

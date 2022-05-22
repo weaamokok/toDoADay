@@ -39,10 +39,12 @@ TextStyle conTodoTextStyle =
 TextStyle connotifacationTimeTextStyle =
     TextStyle(fontFamily: 'Comics', fontSize: 15, color: Color(0xff2A3642));
 TextStyle conCheckedTodoTextStyle = TextStyle(
-    decoration: TextDecoration.lineThrough,
+    decoration: TextDecoration.combine([
+      TextDecoration.lineThrough,
+    ]),
     fontFamily: 'Comics',
     fontSize: 15,
-    color: Color(0xff2A3642));
+    decorationColor: yellow);
 Text displayedDate = Text(
   DateFormat('EEEE')
           .format(CurrentDate)

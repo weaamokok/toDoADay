@@ -1,7 +1,9 @@
 // ignore_for_file: use_key_in_widget_constructors, camel_case_types
 
 import 'package:flutter/material.dart';
-
+import 'package:line_icons/line_icon.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_a_day/elements/module/signing.dart';
 import 'const.dart';
 
 Widget EmptyList = Column(
@@ -88,17 +90,30 @@ class _priorityBoxState extends State<priorityBox> {
 }
 
 //the text feilds for sign in and sign up
-Widget txtFeild(String label, TextEditingController controller2, int type) {
+Widget txtFeild(
+  context,
+  String label,
+  TextEditingController controller2,
+  int type,
+) {
   return Container(
     width: 274,
     height: 45,
-    child: TextField(
+    child: TextFormField(
       controller: controller2,
       obscureText: type == 3 ? true : false,
       style: conTodoTextStyle.copyWith(color: conPrimaryB, fontSize: 12),
       decoration: fieldDecor.copyWith(hintText: label),
       keyboardType: type == 1 ? TextInputType.emailAddress : TextInputType.text,
-      onChanged: (value) {},
+      onChanged: (value) {
+        type == 1
+            ? Provider.of<siggning>(context, listen: false).setEmail(value)
+            : type == 2
+                ? Provider.of<siggning>(context, listen: false)
+                    .setUsername(value)
+                : Provider.of<siggning>(context, listen: false)
+                    .setpasswprd(value);
+      },
     ),
   );
 }
@@ -107,10 +122,12 @@ Widget txtFeild(String label, TextEditingController controller2, int type) {
 class RoundedButton extends StatelessWidget {
   final Color bcolor;
   final Widget child;
-  RoundedButton(this.bcolor, this.child);
+  final Function ontap;
+  RoundedButton(this.bcolor, this.child, this.ontap);
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () => ontap(),
       child: Container(
           child: Center(child: child),
           width: 274,
@@ -128,7 +145,8 @@ class RoundedButton extends StatelessWidget {
 }
 
 //buttons for third party log
-Widget RoundedButtonForGoogleAndFacebookSign(String text, Icon icon) {
+Widget RoundedButtonForGoogleAndFacebookSign(
+    String text, Icon icon, Function ontap) {
   return RoundedButton(
       Colors.white,
       Row(
@@ -144,5 +162,33 @@ Widget RoundedButtonForGoogleAndFacebookSign(String text, Icon icon) {
                 fontSize: 14, color: conPrimaryB.withOpacity(.6)),
           )
         ],
-      ));
+      ),
+      ontap);
+}
+
+Widget sidemenuNavs(IconData icon, String text, Function callback) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      InkWell(
+          onTap: () => callback,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              LineIcon(
+                icon,
+                size: 40,
+                color: Colors.white,
+              ),
+              SizedBox(width: 20),
+              Text(
+                text,
+                style: conToday.copyWith(fontSize: 17),
+              )
+            ],
+          ))
+    ],
+  );
 }
