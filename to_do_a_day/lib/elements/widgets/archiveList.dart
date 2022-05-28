@@ -18,6 +18,7 @@ class _ArchiveListsState extends State<ArchiveLists> {
       .map((tasks) => tasks)
       .toList()
       .length;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,8 +28,8 @@ class _ArchiveListsState extends State<ArchiveLists> {
           return ListView.builder(
               itemBuilder: (context, index) {
                 final task = taskData.archivesTasks
-                    .map((taskList) => taskList[index])
-                    .map((tasks) => tasks)
+                    .map((taskList) => taskList)
+                    .map((tasks) => tasks[index])
                     .toList();
 
                 return aTask(
@@ -40,12 +41,9 @@ class _ArchiveListsState extends State<ArchiveLists> {
                   //   widget.tasks[index].);//modify this we dont need the checkablitiy
                   // setState(() {toggleDone();
                   // });g
-                }, taskData.tasks[index]);
+                }, task[index]);
               },
-              itemCount: taskData.archivesTasks
-                  .map((taskList) => taskList)
-                  .toList()
-                  .length);
+              itemCount: taskData.countinarchiveLen());
         },
       ),
     );

@@ -10,7 +10,7 @@ class siggning extends ChangeNotifier {
   final auth = FirebaseAuth.instance;
   final authCredential =
       AuthCredential(providerId: 'google.com', signInMethod: 'Google');
-  User? loggedUser;
+  late User? loggedUser = auth.currentUser;
 
   void setUsername(var value) {
     userName = value;

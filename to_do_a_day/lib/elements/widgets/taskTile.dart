@@ -17,6 +17,7 @@ class aTask extends StatelessWidget {
   DateTime? notifi;
   final Function chechboxCallback;
   Task task;
+  // TaskData taskData;
 //---------------------------
   aTask(this.taskTitle, this.isChecked, this.priority, this.notifi,
       this.chechboxCallback, this.task);
@@ -29,7 +30,7 @@ class aTask extends StatelessWidget {
           vertical: notifi != null ? Spaceing = 0 : Spaceing = 10),
       child: ListTile(
         onLongPress: () {
-          Provider.of<TaskData>(context, listen: false).deletingTask(task);
+          Provider.of<TaskData>(context, listen: false).archivesTasks;
         },
         leading: Transform.scale(
           scale: 1.5,

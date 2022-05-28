@@ -57,6 +57,8 @@ class _TasksScreenState extends State<TasksScreen>
     screenWidth = size.width;
     ScreenHeigth = size.height;
     return Scaffold(
+      resizeToAvoidBottomInset:
+          false, //to avoid the keyboard effecting the backgroung
       backgroundColor: conPrimaryY,
       // appBar: AppBar(
       //   leading: Icon(
@@ -132,11 +134,38 @@ class _TasksScreenState extends State<TasksScreen>
             ),
           ),
           SizedBox(
-            height: 50,
+            height: 90,
           ),
-          sidemenuNavs(LineIcons.clipboardList, 'My to-dos', () {
+          menuNavs(LineIcons.clipboardList, 'My to-dos', () {
+            Navigator.pushNamed(context, '/task');
+          }, '/task', context),
+          menuNavs(LineIcons.archive, 'Archive', () {
             Navigator.pushNamed(context, '/arc');
-          })
+          }, '/arc', context),
+          menuNavs(LineIcons.bell, 'Alarm settings', () {
+            Navigator.pushNamed(context, '/alarm');
+          }, '', context),
+          menuNavs(LineIcons.alternateUser, 'Profile', () {
+            Navigator.pushNamed(context, '/pro');
+          }, '', context),
+          SizedBox(
+            height: 190,
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 40,
+              ),
+              iconText(Icons.settings, 'settings', () {}),
+              Text(
+                '|',
+                style: conToday,
+              ),
+              iconText(Icons.logout_rounded, 'logout', () {
+                Provider.of<siggning>(context, listen: false).auth.signOut();
+              })
+            ],
+          )
         ],
       ),
     );

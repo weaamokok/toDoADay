@@ -2,38 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'task.dart';
 import 'dart:collection';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TaskData extends ChangeNotifier {
   // ignore: prefer_final_fields
-  List<Task> _tasks = [
-    Task(name: 'buy milk', notifacation: null, priority: 3),
-    Task(
-      name: 'buy ki',
-      notifacation: DateTime.now(),
-      priority: 3,
-    ),
-    Task(name: 'buy lk', notifacation: null, priority: 2),
-  ];
-  List<List<Task>> _taskArchive = [
-    [
-      Task(name: 'buy milk', notifacation: null, priority: 3),
-      Task(
-        name: 'buy ki',
-        notifacation: DateTime.now(),
-        priority: 3,
-      ),
-      Task(name: 'buy lk', notifacation: null, priority: 2),
-    ],
-    [
-      Task(name: 'buy milk', notifacation: null, priority: 3),
-      Task(
-        name: 'buy ki',
-        notifacation: DateTime.now(),
-        priority: 3,
-      ),
-      Task(name: 'buy lk', notifacation: null, priority: 2),
-    ],
-  ];
+  List<Task> _tasks = [];
+  List<List<Task>> _taskArchive = [];
+  final fireStore = FirebaseFirestore.instance;
 
   // List<List<Task>> deserializedLists=_taskArchive.;
 
@@ -57,18 +32,13 @@ class TaskData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void archivingTheDay() {
-    _taskArchive.add(_tasks);
-    print(archivesTasks
-        .map((taskList) => taskList[0]) //قاعد يخش لاول تاسك من كل ليست
-        .map((tasks) => tasks.name));
-    print(archivesTasks
-        .map((taskList) => taskList)
-        .map((tasks) => tasks)
-        .toList()
-        .length);
-    // _tasks.clear();
-    notifyListeners();
+  void archivingTheDay(List<Task> tasks) {
+    tasks.map((task) => fireStore.collection('tasks').add({
+          'isDone': task.isDone,
+          'name': task.name,
+          'notifacation': task.notifacation,
+          'priority': task.priority
+        }));
   }
 
   bool isArchiveEmpty() {
@@ -89,13 +59,19 @@ class TaskData extends ChangeNotifier {
     return _tasks.iterator.moveNext();
   }
 
-  int archiveLen() {
-    int listLen = archivesTasks
+  int? countinarchiveLen() {
+    int? archiveLen;
+    archivesTasks
         .map((taskList) => taskList)
         .map((tasks) => tasks)
-        .toList()
-        .length;
-    notifyListeners();
-    return listLen;
+        .map((element) => {
+              () {
+                archiveLen! + 1;
+              }
+            });
+
+    return archiveLen;
   }
 }
+
+void selectedPage() {}

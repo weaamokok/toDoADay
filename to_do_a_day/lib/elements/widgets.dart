@@ -5,6 +5,7 @@ import 'package:line_icons/line_icon.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/module/signing.dart';
 import 'const.dart';
+import 'package:path/path.dart';
 
 Widget EmptyList = Column(
   children: [
@@ -166,29 +167,53 @@ Widget RoundedButtonForGoogleAndFacebookSign(
       ontap);
 }
 
-Widget sidemenuNavs(IconData icon, String text, Function callback) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      InkWell(
-          onTap: () => callback,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              LineIcon(
-                icon,
-                size: 40,
-                color: Colors.white,
-              ),
-              SizedBox(width: 20),
-              Text(
-                text,
-                style: conToday.copyWith(fontSize: 17),
-              )
-            ],
-          ))
-    ],
+Widget menuNavs(IconData icon, String text, Function callback,
+    String currentPath, BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 60.0, top: 30),
+    child: InkWell(
+        onTap: () => callback(),
+        child: Row(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            LineIcon(
+              icon,
+              size: 35,
+              color: ModalRoute.of(context)!.settings.name == currentPath
+                  ? Colors.white
+                  : Colors.white.withOpacity(.5),
+            ),
+            SizedBox(width: 30),
+            Text(
+              text,
+              style: conToday.copyWith(
+                  fontSize: 16,
+                  color: ModalRoute.of(context)!.settings.name == currentPath
+                      ? Colors.white
+                      : Colors.white.withOpacity(.5)),
+            )
+          ],
+        )),
+  );
+}
+
+Widget iconText(IconData icon, String text, Function callback) {
+  return Padding(
+    padding: EdgeInsets.only(left: 10),
+    child: InkWell(
+        onTap: () => callback(),
+        child: Row(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            LineIcon(icon, size: 35, color: Colors.white),
+            SizedBox(width: 10),
+            Text(
+              text,
+              style: conToday.copyWith(fontSize: 13, color: Colors.white),
+            )
+          ],
+        )),
   );
 }

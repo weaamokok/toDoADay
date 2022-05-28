@@ -10,7 +10,7 @@ import 'package:empty_widget/empty_widget.dart';
 import 'archiveList.dart';
 
 class archiveContainer extends StatelessWidget {
-  final List<Task> listOftasks = TaskData().tasks;
+  final listOftasks = TaskData().tasks;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +26,7 @@ class archiveContainer extends StatelessWidget {
               child: FlatButton(
                   onPressed: () {
                     Provider.of<TaskData>(context, listen: false)
-                        .archivingTheDay();
+                        .archivingTheDay(listOftasks);
                   },
                   child: Container(
                     margin: EdgeInsets.all(15),

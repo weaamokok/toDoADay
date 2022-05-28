@@ -6,8 +6,10 @@ import 'package:to_do_a_day/elements/module/task_data.dart';
 import 'package:to_do_a_day/screens/loginScreen.dart';
 import 'package:to_do_a_day/screens/signUpScreen.dart';
 import 'package:to_do_a_day/screens/startScreen.dart';
+import 'screens/alarmScreen.dart';
 import 'screens/archiveScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'screens/profile.dart';
 import 'screens/task_screen.dart';
 import 'elements/module/task_data.dart';
 
@@ -16,8 +18,9 @@ void main() async {
   await Firebase.initializeApp();
 
   runApp(MyApp());
-}
-
+   
+} 
+  
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,9 @@ class MyApp extends StatelessWidget {
             '/arc': (context) => ArchiveScreen(),
             '/task': ((context) => TasksScreen()),
             '/log': ((context) => loginScreen()),
-            '/sign': ((context) => SignUpScreen())
+            '/sign': ((context) => SignUpScreen()),
+            'pro': ((context) => profile()),
+            '/alarm': ((context) => alarmScreen()),
           },
         ));
   }
