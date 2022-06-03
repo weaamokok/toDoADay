@@ -1,4 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
+import 'package:intl/intl.dart';
+import 'package:to_do_a_day/elements/widgets/taskTile.dart';
+import '../../screens/task_screen.dart';
+import '../const.dart';
 import 'task.dart';
 import 'dart:collection';
 import 'dart:io';
@@ -6,20 +12,28 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TaskData extends ChangeNotifier {
   // ignore: prefer_final_fields
-  List<Task> _tasks = [];
+  List<Task> tasks = [
+    // Task(name: 'nme', priority: 1),
+    // Task(name: 'ame', priority: 1)
+  ];
   List<List<Task>> _taskArchive = [];
   final fireStore = FirebaseFirestore.instance;
 
   // List<List<Task>> deserializedLists=_taskArchive.;
 
-  UnmodifiableListView<Task> get tasks {
+  UnmodifiableListView<Task> get tasksy {
     return UnmodifiableListView(
-        _tasks); //to prevent any modifiing on the list of tasks
+        tasks); //to prevent any modifiing on the list of tasks
   }
 
   UnmodifiableListView<List<Task>> get archivesTasks {
     return UnmodifiableListView(
         _taskArchive); //to prevent any modifiing on the list of tasks
+  }
+
+  List<Task> getTasks() {
+    notifyListeners();
+    return tasks;
   }
 
   void addTask(String name, bool isDone, int priority, DateTime? notifacation) {
@@ -28,17 +42,35 @@ class TaskData extends ChangeNotifier {
         priority: priority,
         isDone: false,
         notifacation: notifacation);
-    _tasks.add(task);
+    Tasks.add(task);
     notifyListeners();
   }
 
   void archivingTheDay(List<Task> tasks) {
-    tasks.map((task) => fireStore.collection('tasks').add({
-          'isDone': task.isDone,
-          'name': task.name,
-          'notifacation': task.notifacation,
-          'priority': task.priority
-        }));
+    for (var task in tasks) {
+      print(task.name);
+      fireStore.collection('tasks').add({
+        'isDone': task.isDone,
+        'name': task.name,
+        'notifacation': task.notifacation,
+        'priority': task.priority
+      });
+      Tasks.clear();
+    }
+    // tasks.map((task) => print(task.name));
+    // tasks.map((task) => {});
+    notifyListeners();
+  }
+
+  void timerForArchive(context) {
+    DateFormat formator = DateFormat('yyyy-MM-dd');
+    String formated = formator.format(CurrentDate);
+    DateTime timetoArch = DateTime.parse("$formated 09:35:00Z");
+    Timer(timetoArch.difference(CurrentDate), () {
+      archivingTheDay(Tasks);
+
+      notifyListeners();
+    });
   }
 
   bool isArchiveEmpty() {
@@ -51,12 +83,12 @@ class TaskData extends ChangeNotifier {
   }
 
   void deletingTask(Task task) {
-    _tasks.remove(task);
+    tasks.remove(task);
     notifyListeners();
   }
 
   bool isEmptyList() {
-    return _tasks.iterator.moveNext();
+    return Tasks.iterator.moveNext();
   }
 
   int? countinarchiveLen() {

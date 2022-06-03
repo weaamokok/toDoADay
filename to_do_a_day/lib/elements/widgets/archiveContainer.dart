@@ -10,7 +10,7 @@ import 'package:empty_widget/empty_widget.dart';
 import 'archiveList.dart';
 
 class archiveContainer extends StatelessWidget {
-  final listOftasks = TaskData().tasks;
+  final listOftasks = TaskData().tasksy;
   @override
   Widget build(BuildContext context) {
     return Container(

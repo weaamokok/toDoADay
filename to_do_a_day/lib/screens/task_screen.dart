@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -18,10 +19,16 @@ import '../elements/widgets/addingTodo.dart';
 import '../elements/widgets/tasksList.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+List<Task> Tasks = [];
+
 //TODO refactor the screen
 class TasksScreen extends StatefulWidget {
   @override
   State<TasksScreen> createState() => _TasksScreenState();
+}
+
+void archivingAction(context) {
+  //archiving
 }
 
 class _TasksScreenState extends State<TasksScreen>
@@ -36,12 +43,15 @@ class _TasksScreenState extends State<TasksScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    Tasks = TaskData().tasks;
     Provider.of<siggning>(context, listen: false).getCurrentUser();
     _controller = AnimationController(vsync: this, duration: duration);
     _scaleAnimation = Tween<double>(
       begin: 1,
       end: 0.8,
     ).animate(_controller!);
+    Provider.of<TaskData>(context, listen: false).timerForArchive(context);
   }
 
   @override

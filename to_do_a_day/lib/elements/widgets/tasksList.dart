@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../screens/task_screen.dart';
 import '../module/task.dart';
 import 'taskTile.dart';
 import 'package:provider/provider.dart';
@@ -15,13 +16,13 @@ class checkLists extends StatelessWidget {
         builder: (context, taskData, child) {
           return ListView.builder(
             itemBuilder: (context, index) {
-              final task = taskData.tasks[index];
+              final task = Tasks[index];
               return aTask(task.name.toString(), task.isDone, task.priority,
                   task.notifacation, (chechboxState) {
                 taskData.updateTask(task);
-              }, taskData.tasks[index]);
+              }, Tasks[index]);
             },
-            itemCount: taskData.tasks.length,
+            itemCount: Tasks.length,
           );
         },
       ),

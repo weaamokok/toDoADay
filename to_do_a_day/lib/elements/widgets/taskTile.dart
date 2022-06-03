@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../screens/task_screen.dart';
 import '../const.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_a_day/elements/module/task_data.dart';
@@ -29,8 +30,10 @@ class aTask extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           vertical: notifi != null ? Spaceing = 0 : Spaceing = 10),
       child: ListTile(
-        onLongPress: () {
-          Provider.of<TaskData>(context, listen: false).archivesTasks;
+        onTap: () {
+          print('object');
+          Provider.of<TaskData>(context, listen: false)
+              .archivingTheDay(Tasks); //archiving
         },
         leading: Transform.scale(
           scale: 1.5,
@@ -86,4 +89,3 @@ class aTask extends StatelessWidget {
 //     setState(() {
 //       isChecked = checkState;
 //     }
-
