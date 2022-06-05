@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,9 +14,9 @@ double Spaceing = 0;
 
 class aTask extends StatelessWidget {
   String taskTitle;
-  final bool isChecked;
+  final int isChecked;
   int priority = 1;
-  DateTime? notifi;
+  var notifi;
   final Function chechboxCallback;
   Task task;
   // TaskData taskData;
@@ -42,7 +43,7 @@ class aTask extends StatelessWidget {
               activeColor: conPrimaryB,
               fillColor:
                   MaterialStateColor.resolveWith((states) => Colors.white),
-              value: isChecked,
+              value: isChecked == 0 ? false : true,
               checkColor: yellow,
               onChanged: (value) {
                 chechboxCallback(value);
@@ -57,13 +58,13 @@ class aTask extends StatelessWidget {
                 decorationColor: yellow,
                 decorationStyle: TextDecorationStyle.wavy,
                 decorationThickness: 1.5,
-                decoration: isChecked ? TextDecoration.lineThrough : null,
+                decoration: isChecked == 1 ? TextDecoration.lineThrough : null,
                 fontFamily: 'Comics',
                 fontSize: 15,
                 color: Color(0xff2A3642))),
         subtitle: notifi != null
             ? Text(
-                DateFormat('jm').format(notifi!), //date format with am,pm
+                notifi!, //date format with am,pm
                 style: TextStyle(
                   fontFamily: 'Comics',
                   fontSize: 12,

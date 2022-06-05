@@ -1,16 +1,20 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/module/task_data.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_a_day/elements/module/database.dart';
+import 'package:to_do_a_day/elements/module/task.dart';
 import 'package:to_do_a_day/elements/widgets.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 // ignore: unnecessary_import
 
 import '../const.dart';
 
+TodoProvider taskProvider = new TodoProvider();
 String newTask = '';
 int selectedPriority = 1;
-DateTime? alarm;
+var alarm;
 void selectionColor(int priority) {
   //1is green 2 is yellow 3 is red
 
@@ -65,7 +69,7 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   bool alarmIsSet = false;
-  DateTime? dateTime;
+  var dateTime;
 
   @override
   Widget build(BuildContext context) {
@@ -82,11 +86,16 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             children: [
               FlatButton(
                   onPressed: () {
-                    Provider.of<TaskData>(context, listen: false).addTask(
-                        newTask,
-                        false,
-                        selectedPriority,
-                        alarmIsSet ? dateTime : null);
+                    // Provider.of<TaskData>(context, listen: false).addTask(
+                    //     newTask,
+                    //     false,
+                    //     selectedPriority,
+                    //     alarmIsSet ? dateTime : null);
+                    TaskData().insert(Task(
+                        name: newTask,
+                        isDone: 0,
+                        priority: selectedPriority,
+                        notifacation: alarmIsSet ? dateTime : null));
 
                     resetPriority();
                     Navigator.pop(context);
