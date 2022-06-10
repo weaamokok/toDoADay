@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/const.dart';
 import 'package:to_do_a_day/elements/module/signing.dart';
+import 'package:to_do_a_day/elements/module/task.dart';
 import 'package:to_do_a_day/elements/module/task_data.dart';
 import 'package:to_do_a_day/screens/loginScreen.dart';
 import 'package:to_do_a_day/screens/signUpScreen.dart';
@@ -16,9 +17,19 @@ import 'screens/archiveScreen.dart';
 import 'screens/profile.dart';
 import 'screens/task_screen.dart';
 import 'elements/module/task_data.dart';
+import 'elements/module/databaseHelper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  var db = DatabaseHandler();
+  // db.insertTask(Task(
+  //     name: 'test',
+  //     priority: 1,
+  //     notifacation: "20120227 13:27:00",
+  //     creationTime: DateTime.now().toUtc(),
+  //     isDone: false,
+  //     isArchived: false));
+
   await Firebase.initializeApp();
 
   runApp(MyApp());

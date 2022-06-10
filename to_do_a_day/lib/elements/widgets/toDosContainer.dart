@@ -25,29 +25,7 @@ class todosContainer extends StatelessWidget {
             ]),
         child: Stack(
           children: [
-            Provider.of<TaskData>(context, listen: true).isEmptyList()
-                ? checkLists()
-                : Center(
-                    child: Column(children: [
-                      SizedBox(
-                        height: 80,
-                      ),
-                      Image.asset(
-                        'images/Stuck at Home - To Do List.png',
-                        width: 209,
-                        height: 209,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'add your to-dos for today,\n remember yours to-dos will be \n archived when the day is over',
-                        textAlign: TextAlign.center,
-                        style: conTodoTextStyle.copyWith(
-                            color: Color(0xff2A3642).withOpacity(0.5)),
-                      )
-                    ]),
-                  ),
+            checkLists(),
             Transform.translate(
               offset: Offset(340, 550),
               child: FloatingActionButton(

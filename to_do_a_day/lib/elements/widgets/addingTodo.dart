@@ -11,6 +11,7 @@ import '../const.dart';
 String newTask = '';
 int selectedPriority = 1;
 DateTime? alarm;
+DateTime? creationTime;
 void selectionColor(int priority) {
   //1is green 2 is yellow 3 is red
 
@@ -86,7 +87,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         newTask,
                         false,
                         selectedPriority,
-                        alarmIsSet ? dateTime : null);
+                        alarmIsSet ? dateTime : null,
+                        false,
+                        CurrentDate);
 
                     resetPriority();
                     Navigator.pop(context);

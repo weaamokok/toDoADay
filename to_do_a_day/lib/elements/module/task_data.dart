@@ -7,10 +7,11 @@ import '../../screens/task_screen.dart';
 import '../const.dart';
 import 'task.dart';
 import 'dart:collection';
-import 'dart:io';
+import 'package:to_do_a_day/elements/module/databaseHelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TaskData extends ChangeNotifier {
+  final db = DatabaseHandler();
   // ignore: prefer_final_fields
   List<Task> tasks = [
     // Task(name: 'nme', priority: 1),
@@ -36,14 +37,18 @@ class TaskData extends ChangeNotifier {
     return tasks;
   }
 
-  void addTask(String name, bool isDone, int priority, DateTime? notifacation) {
+  void addTask(String name, bool isDone, int priority, DateTime? notifacation,
+      bool isArchives, DateTime creationTime) {
     final task = Task(
         name: name,
         priority: priority,
         isDone: false,
-        notifacation: notifacation);
+        notifacation: notifacation,
+        isArchived: false,
+        creationTime: CurrentDate);
     Tasks.add(task);
     notifyListeners();
+    db.insertTask(task);
   }
 
   void archivingTheDay(List<Task> tasks) {
