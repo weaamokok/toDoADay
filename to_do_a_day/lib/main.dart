@@ -31,7 +31,6 @@ void main() async {
   //     isArchived: false));
 
   await Firebase.initializeApp();
-
   runApp(MyApp());
 }
 
