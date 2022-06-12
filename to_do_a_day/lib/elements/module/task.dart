@@ -41,7 +41,8 @@ class Task {
   }
 
   void toggleDone() {
-    isDone = !isDone; //for checkbox
+    isDone = !isDone;
+    //for checkbox
   }
 
   void toggleArchive() {

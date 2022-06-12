@@ -32,10 +32,11 @@ class TaskData extends ChangeNotifier {
         _taskArchive); //to prevent any modifiing on the list of tasks
   }
 
-  List<Task> getTasks() {
-    notifyListeners();
-    return tasks;
-  }
+  // Future<List<Task>> getTasks() async {
+  //   List<Task> tasks = await db.getTasks();
+  //   notifyListeners();
+  //   return tasks;
+  // }
 
   void addTask(String name, bool isDone, int priority, DateTime? notifacation,
       bool isArchives, DateTime creationTime) {
@@ -51,32 +52,23 @@ class TaskData extends ChangeNotifier {
     db.insertTask(task);
   }
 
-  void archivingTheDay(List<Task> tasks) {
-    for (var task in tasks) {
-      print(task.name);
-      fireStore.collection('tasks').add({
-        'isDone': task.isDone,
-        'name': task.name,
-        'notifacation': task.notifacation,
-        'priority': task.priority
-      });
-      Tasks.clear();
-    }
+  void archivingTheDay() {
+    db.archivingTasks();
     // tasks.map((task) => print(task.name));
     // tasks.map((task) => {});
     notifyListeners();
   }
 
-  void timerForArchive(context) {
-    DateFormat formator = DateFormat('yyyy-MM-dd');
-    String formated = formator.format(CurrentDate);
-    DateTime timetoArch = DateTime.parse("$formated 09:35:00Z");
-    Timer(timetoArch.difference(CurrentDate), () {
-      archivingTheDay(Tasks);
+  // void timerForArchive(context) {
+  //   DateFormat formator = DateFormat('yyyy-MM-dd');
+  //   String formated = formator.format(CurrentDate);
+  //   DateTime timetoArch = DateTime.parse("$formated 00:00:00Z");
+  //   Timer(timetoArch.difference(CurrentDate), () {
+  //     db.archivingTasks();
 
-      notifyListeners();
-    });
-  }
+  //     notifyListeners();
+  //   });
+  // }
 
   bool isArchiveEmpty() {
     return archivesTasks.iterator.moveNext();
@@ -85,11 +77,13 @@ class TaskData extends ChangeNotifier {
   void updateTask(Task task) {
     task.toggleDone();
     notifyListeners();
+    db.DoneUpdate(task);
   }
 
   void deletingTask(Task task) {
     tasks.remove(task);
     notifyListeners();
+    db.deleteTask(task);
   }
 
   bool isEmptyList() {

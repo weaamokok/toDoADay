@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../const.dart';
+import '../module/databaseHelper.dart';
 import '../module/task.dart';
 import 'taskTile.dart';
 import 'package:provider/provider.dart';
@@ -12,38 +14,53 @@ class ArchiveLists extends StatefulWidget {
 }
 
 class _ArchiveListsState extends State<ArchiveLists> {
-  int listLen = TaskData()
-      .archivesTasks
-      .map((taskList) => taskList)
-      .map((tasks) => tasks)
-      .toList()
-      .length;
-
   @override
   Widget build(BuildContext context) {
+    final db = DatabaseHandler();
     return Padding(
-      padding: const EdgeInsets.only(top: 40.0),
+      padding: const EdgeInsets.only(top: 50.0, left: 20),
       child: Consumer<TaskData>(
         builder: (context, taskData, child) {
-          return ListView.builder(
-              itemBuilder: (context, index) {
-                final task = taskData.archivesTasks
-                    .map((taskList) => taskList)
-                    .map((tasks) => tasks[index])
-                    .toList();
-
-                return aTask(
-                    task[index].name.toString(),
-                    task[index].isDone,
-                    task[index].priority,
-                    task[index].notifacation, (chechboxState) {
-                  taskData.updateTask(task[index]);
-                  //   widget.tasks[index].);//modify this we dont need the checkablitiy
-                  // setState(() {toggleDone();
-                  // });g
-                }, task[index]);
-              },
-              itemCount: taskData.countinarchiveLen());
+          return FutureBuilder(
+              future: db.getArchivedTasks(),
+              builder: (context, AsyncSnapshot<List<Task>> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      final task = snapshot.data![index];
+                      return aTask(
+                          task.name.toString(),
+                          task.isDone,
+                          task.priority,
+                          DateTime.tryParse(task.notifacation ??
+                              ''), //the method parse didnt work tryParse() is it for the job here
+                          (chechboxState) {
+                        taskData.updateTask(task);
+                      }, task);
+                    },
+                    itemCount: snapshot.data?.length,
+                  );
+                } else {
+                  return Center(
+                    child: Column(children: [
+                      SizedBox(
+                        height: 200,
+                      ),
+                      Image.asset(
+                        'images/Wavy Buddies - Box.png',
+                        width: 210,
+                        height: 210,
+                      ),
+                      Text(
+                        'add your to-dos will be \nautomatically moved here\n at the end of each day',
+                        textAlign: TextAlign.center,
+                        style: conTodoTextStyle.copyWith(
+                            color: Color(0xff2A3642).withOpacity(0.5)),
+                      )
+                    ]),
+                  );
+                }
+              });
         },
       ),
     );

@@ -122,7 +122,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     child: SizedBox(
                         width: 300,
                         // ignore: prefer_const_constructors
-                        child: TextField(
+                        child: TextFormField(
                           onChanged: (newText) {
                             newTask = newText;
                           },

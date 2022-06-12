@@ -10,7 +10,6 @@ import 'package:empty_widget/empty_widget.dart';
 import 'archiveList.dart';
 
 class archiveContainer extends StatelessWidget {
-  final listOftasks = TaskData().tasksy;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,10 +23,7 @@ class archiveContainer extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: FlatButton(
-                  onPressed: () {
-                    Provider.of<TaskData>(context, listen: false)
-                        .archivingTheDay(listOftasks);
-                  },
+                  onPressed: () {},
                   child: Container(
                     margin: EdgeInsets.all(15),
                     padding: EdgeInsets.only(top: 6),
@@ -44,26 +40,7 @@ class archiveContainer extends StatelessWidget {
                     ),
                   )),
             ),
-            Provider.of<TaskData>(context, listen: true).isArchiveEmpty()
-                ? ArchiveLists()
-                : Center(
-                    child: Column(children: [
-                      SizedBox(
-                        height: 200,
-                      ),
-                      Image.asset(
-                        'images/Wavy Buddies - Box.png',
-                        width: 210,
-                        height: 210,
-                      ),
-                      Text(
-                        'add your to-dos will be \nautomatically moved here\n at the end of each day',
-                        textAlign: TextAlign.center,
-                        style: conTodoTextStyle.copyWith(
-                            color: Color(0xff2A3642).withOpacity(0.5)),
-                      )
-                    ]),
-                  ),
+            ArchiveLists()
           ],
         ) //here goes the Empty List or the checkList
         );

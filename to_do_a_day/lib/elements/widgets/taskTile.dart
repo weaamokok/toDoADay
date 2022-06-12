@@ -30,10 +30,10 @@ class aTask extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           vertical: notifi != null ? Spaceing = 0 : Spaceing = 10),
       child: ListTile(
-        onTap: () {
-          print('object');
+        onLongPress: () {
+          // print('object');
           Provider.of<TaskData>(context, listen: false)
-              .archivingTheDay(Tasks); //archiving
+              .deletingTask(task); //archiving
         },
         leading: Transform.scale(
           scale: 1.5,
