@@ -59,16 +59,20 @@ class TaskData extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void timerForArchive(context) {
-  //   DateFormat formator = DateFormat('yyyy-MM-dd');
-  //   String formated = formator.format(CurrentDate);
-  //   DateTime timetoArch = DateTime.parse("$formated 00:00:00Z");
-  //   Timer(timetoArch.difference(CurrentDate), () {
-  //     db.archivingTasks();
+  void timerForArchive(context) {
+    DateFormat formator = DateFormat('yyyy-MM-dd');
+    String formated = formator.format(DateTime(
+      CurrentDate.year,
+      CurrentDate.month,
+      CurrentDate.day + 1,
+    ));
+    DateTime timetoArch = DateTime.parse("$formated 00:00:00Z");
+    Timer(timetoArch.difference(CurrentDate), () {
+      db.archivingTasks();
 
-  //     notifyListeners();
-  //   });
-  // }
+      notifyListeners();
+    });
+  }
 
   bool isArchiveEmpty() {
     return archivesTasks.iterator.moveNext();

@@ -51,7 +51,7 @@ class _TasksScreenState extends State<TasksScreen>
       begin: 1,
       end: 0.8,
     ).animate(_controller!);
-    // Provider.of<TaskData>(context, listen: false).timerForArchive(context);
+    Provider.of<TaskData>(context, listen: false).timerForArchive(context);
   }
 
   @override
