@@ -7,9 +7,11 @@ import 'package:to_do_a_day/elements/module/task_data.dart';
 import '../const.dart';
 import 'package:empty_widget/empty_widget.dart';
 
+import '../module/databaseHelper.dart';
 import 'archiveList.dart';
 
 class archiveContainer extends StatelessWidget {
+  final db = DatabaseHandler();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +25,9 @@ class archiveContainer extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    TaskData().ArchiveEmpty();
+                  },
                   child: Container(
                     margin: EdgeInsets.all(15),
                     padding: EdgeInsets.only(top: 6),

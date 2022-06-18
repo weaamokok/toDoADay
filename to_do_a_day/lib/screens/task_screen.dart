@@ -107,28 +107,43 @@ class _TasksScreenState extends State<TasksScreen>
             padding: const EdgeInsets.only(left: 40),
             child: Row(
               children: [
-                CircleAvatar(
-                  //Avatar
-                  backgroundColor: Color(0xff).withOpacity(0),
-                  radius: 50,
-                  child: Image.asset(
-                    'images/Stuck at Home - Avatar.png',
-                    fit: BoxFit.contain,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      //Avatar
+                      backgroundColor: Color(0xff).withOpacity(0),
+                      radius: 50,
+                      child: Image.asset(
+                        'images/Stuck at Home - Avatar.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    EditButton(() {})
+                  ],
                 ),
                 SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                        //UserName
-                        Provider.of<siggning>(context, listen: false)
-                            .loggedUser!
-                            .email
-                            .toString()
-                            .split('@')
-                            .first,
-                        style: conToday.copyWith(fontSize: 17)),
+                    Row(
+                      children: [
+                        Text(
+                            siggning().auth.currentUser != null
+                                ?
+                                //UserName
+                                Provider.of<siggning>(context, listen: false)
+                                    .loggedUser!
+                                    .email
+                                    .toString()
+                                    .split('@')
+                                    .first
+                                : 'You',
+                            style: conToday.copyWith(fontSize: 17)),
+                        SizedBox(width: 10),
+                        EditButton(() {})
+                      ],
+                    ),
                     Text(
                       //Email
                       Provider.of<siggning>(context, listen: false)
@@ -191,87 +206,93 @@ class _TasksScreenState extends State<TasksScreen>
       child: ScaleTransition(
         scale: _scaleAnimation!,
         child: SafeArea(
-          child: Container(
-            color: conPrimaryY,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: IconButton(
-                          icon: Icon(Icons.menu_rounded),
-                          color: Colors.white,
-                          iconSize: 35,
-                          onPressed: () {
-                            setState(() {
-                              isCollapsed
-                                  ? _controller!.forward()
-                                  : _controller!.reverse();
-                              isCollapsed = !isCollapsed;
-                            });
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: SizedBox(
-                          width: 300,
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: IconButton(
-                          icon: Icon(Icons.help_rounded),
-                          color: Colors.white,
-                          iconSize: 30,
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/arc');
-                            // Provider.of<TaskData>(context, listen: false)
-                            //     .archivingTheDay();
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 15,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+          child: GestureDetector(
+            onHorizontalDragEnd: (value) {
+              setState(() {
+                isCollapsed ? _controller!.forward() : _controller!.reverse();
+                isCollapsed = !isCollapsed;
+              });
+            },
+            child: Container(
+              color: conPrimaryY,
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Row(
                       children: [
-                        Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.only(top: 20, left: 50),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Today',
-                                style: conToday,
-                              ),
-                              SizedBox(
-                                height: 9,
-                              ),
-                              displayedDate,
-                              //today's date
-                            ],
+                        Expanded(
+                          flex: 1,
+                          child: IconButton(
+                            icon: Icon(Icons.menu_rounded),
+                            color: Colors.white,
+                            iconSize: 35,
+                            onPressed: () {
+                              setState(() {
+                                isCollapsed
+                                    ? _controller!.forward()
+                                    : _controller!.reverse();
+                                isCollapsed = !isCollapsed;
+                              });
+                            },
                           ),
                         ),
-                        SizedBox(
-                          height: 25,
+                        Expanded(
+                          flex: 4,
+                          child: SizedBox(
+                            width: 300,
+                          ),
                         ),
-                        Expanded(child: todosContainer())
+                        Expanded(
+                          flex: 1,
+                          child: IconButton(
+                            icon: Icon(Icons.help_rounded),
+                            color: Colors.white,
+                            iconSize: 30,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/arc');
+                            },
+                          ),
+                        )
                       ],
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    flex: 15,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            margin: EdgeInsets.only(top: 20, left: 50),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Today',
+                                  style: conToday,
+                                ),
+                                SizedBox(
+                                  height: 9,
+                                ),
+                                displayedDate,
+                                //today's date
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                          Expanded(child: todosContainer())
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

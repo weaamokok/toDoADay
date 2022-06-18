@@ -12,6 +12,7 @@ import 'package:to_do_a_day/elements/module/task_data.dart';
 import 'package:to_do_a_day/screens/loginScreen.dart';
 import 'package:to_do_a_day/screens/signUpScreen.dart';
 import 'package:to_do_a_day/screens/startScreen.dart';
+import 'elements/widgets/addingTodoScreen.dart';
 import 'screens/alarmScreen.dart';
 import 'screens/archiveScreen.dart';
 import 'screens/profile.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => siggning())
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           initialRoute: '/task',
           routes: {
             // When navigating to the "/" route, build the FirstScreen widget.
@@ -52,6 +54,7 @@ class MyApp extends StatelessWidget {
             // When navigating to the "/second" route, build the SecondScreen widget.
             '/arc': (context) => ArchiveScreen(),
             '/task': ((context) => TasksScreen()),
+            '/addTask': ((context) => AddingTaskScreen()),
             '/log': ((context) => loginScreen()),
             '/sign': ((context) => SignUpScreen()),
             'pro': ((context) => profile()),

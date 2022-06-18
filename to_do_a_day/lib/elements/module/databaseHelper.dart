@@ -28,6 +28,11 @@ class DatabaseHandler {
     await db.delete('tasks', where: 'id==?', whereArgs: [task.id]);
   }
 
+  Future<void> EmptyArchive() async {
+    final Database db = await initializeDb();
+    await db.delete('tasks', where: 'isArchived==1');
+  }
+
   //fetch all tasks
   Future<List<Task>> getTasks() async {
     final Database db = await initializeDb();
@@ -47,8 +52,9 @@ class DatabaseHandler {
                 : false, //no bool datatype in sqflite so converting it to int,and here we convert in to bool when it comes from db
             creationTime: items[i]['creationTime'])));
   }
+
   //to fetch the Archived tasks
-    Future<List<Task>> getArchivedTasks() async {
+  Future<List<Task>> getArchivedTasks() async {
     final Database db = await initializeDb();
     List<Map<String, dynamic>> items =
         await db.query('tasks', where: 'isArchived==1', orderBy: 'id DESC');
@@ -66,11 +72,12 @@ class DatabaseHandler {
                 : false, //no bool datatype in sqflite so converting it to int,and here we convert in to bool when it comes from db
             creationTime: items[i]['creationTime'])));
   }
+
 //to change the done state and toggle the checkbox
   Future<void> DoneUpdate(Task task) async {
     final Database db = await initializeDb();
     await db.rawUpdate('UPDATE tasks SET isDone =? WHERE id==? ',
-        [task.isDone == 1 ? 0 : 1, task.id]);
+        [task.isDone ? 1 : 0, task.id]);
   }
 
   Future<void> archivingTasks() async {

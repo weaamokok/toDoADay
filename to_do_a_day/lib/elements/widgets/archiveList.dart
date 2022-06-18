@@ -35,7 +35,7 @@ class _ArchiveListsState extends State<ArchiveLists> {
                           DateTime.tryParse(task.notifacation ??
                               ''), //the method parse didnt work tryParse() is it for the job here
                           (chechboxState) {
-                        taskData.updateTask(task);
+                        // taskData.updateTask(task);
                       }, task);
                     },
                     itemCount: snapshot.data?.length,

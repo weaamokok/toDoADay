@@ -66,20 +66,21 @@ class TaskData extends ChangeNotifier {
       CurrentDate.month,
       CurrentDate.day + 1,
     ));
+    // String formated = formator.format(CurrentDate);
     DateTime timetoArch = DateTime.parse("$formated 00:00:00Z");
     Timer(timetoArch.difference(CurrentDate), () {
-      db.archivingTasks();
-
       notifyListeners();
+      db.archivingTasks();
     });
   }
 
-  bool isArchiveEmpty() {
-    return archivesTasks.iterator.moveNext();
+  void ArchiveEmpty() {
+    notifyListeners();
+    db.EmptyArchive();
   }
 
   void updateTask(Task task) {
-    task.toggleDone();
+    task.isDone = !task.isDone;
     notifyListeners();
     db.DoneUpdate(task);
   }

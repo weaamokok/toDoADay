@@ -7,6 +7,8 @@ import 'package:to_do_a_day/elements/module/task_data.dart';
 import '../const.dart';
 import 'package:empty_widget/empty_widget.dart';
 
+import 'addingTodoScreen.dart';
+
 class todosContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -35,11 +37,14 @@ class todosContainer extends StatelessWidget {
                     size: 35,
                   ),
                   onPressed: () {
-                    showModalBottomSheet(
-                        enableDrag: false,
-                        isDismissible: false,
-                        context: context,
-                        builder: (context) => AddTaskScreen());
+                    Navigator.pushNamed(context, '/addTask');
+                    // showModalBottomSheet(
+                    //     elevation: 0,
+                    //     enableDrag: false,
+                    //     isDismissible: false,
+                    //     context: context,
+                    //     builder: (context) => AddingTaskScreen());
+
                     // setState(() {
                     //   tasks.add(Task(
                     //       name: newTask,

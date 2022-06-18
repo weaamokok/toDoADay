@@ -217,3 +217,23 @@ Widget iconText(IconData icon, String text, Function callback) {
         )),
   );
 }
+
+Widget EditButton(Function ontap) {
+  return InkWell(
+    onTap: () => ontap,
+    child: Row(
+      children: [
+        Text(
+          'edit',
+          style: conTodaysDate.copyWith(
+              color: Colors.white.withOpacity(.6),
+              decoration: TextDecoration.underline),
+        ),
+        Icon(
+          Icons.mode_edit_outline,
+          color: Colors.white.withOpacity(.6),
+        ),
+      ],
+    ),
+  );
+}
