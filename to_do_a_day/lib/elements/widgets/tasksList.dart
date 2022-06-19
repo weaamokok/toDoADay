@@ -20,7 +20,9 @@ class checkLists extends StatelessWidget {
           return FutureBuilder(
               future: db.getTasks(),
               builder: (context, AsyncSnapshot<List<Task>> snapshot) {
-                if (snapshot.hasData) {
+                taskData.len = snapshot.data?.length;
+
+                if (taskData.len != 0 && snapshot.hasData) {
                   return ListView.builder(
                     itemBuilder: (context, index) {
                       final task = snapshot.data![index];

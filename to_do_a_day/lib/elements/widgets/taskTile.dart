@@ -32,9 +32,50 @@ class aTask extends StatelessWidget {
           vertical: notifi != null ? Spaceing = 0 : Spaceing = 10),
       child: ListTile(
         onLongPress: () {
-          // print('object');
-          Provider.of<TaskData>(context, listen: false)
-              .deletingTask(task); //archiving
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text(
+                    'delete this todo?',
+                    textAlign: TextAlign.center,
+                    style: conTodoTextStyle.copyWith(fontSize: 18),
+                  ),
+                  actions: [
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          'cancel',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Comics',
+                              color: Colors.grey.withOpacity(.7)),
+                        )),
+                    InkWell(
+                        onTap: () {
+                          Provider.of<TaskData>(context, listen: false)
+                              .deletingTask(task);
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          'delete',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Comics',
+                              color: conActPriorityR),
+                        )),
+                  ],
+                  buttonPadding: EdgeInsets.all(20),
+                  actionsAlignment: MainAxisAlignment.spaceAround,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 50, horizontal: 100),
+                );
+              });
+          //archiving
         },
         leading: Transform.scale(
           scale: 1.5,

@@ -14,7 +14,7 @@ class ArchiveScreen extends StatelessWidget {
             padding: EdgeInsets.only(top: 15.0),
             child: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, '/task');
               },
               icon: Icon(Icons.arrow_back_ios_rounded),
               color: Colors.white,

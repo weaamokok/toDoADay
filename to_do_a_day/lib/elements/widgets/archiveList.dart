@@ -24,7 +24,8 @@ class _ArchiveListsState extends State<ArchiveLists> {
           return FutureBuilder(
               future: db.getArchivedTasks(),
               builder: (context, AsyncSnapshot<List<Task>> snapshot) {
-                if (snapshot.hasData) {
+                taskData.archlen = snapshot.data?.length;
+                if (taskData.archlen != 0 && snapshot.hasData) {
                   return ListView.builder(
                     itemBuilder: (context, index) {
                       final task = snapshot.data![index];

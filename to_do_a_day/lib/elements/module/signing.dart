@@ -30,7 +30,7 @@ class siggning extends ChangeNotifier {
   }
 
   void getCurrentUser() async {
-    final user = await auth.currentUser!;
+    final user = await auth.currentUser;
     if (user != null) {
       loggedUser = user;
       print(loggedUser!.email);

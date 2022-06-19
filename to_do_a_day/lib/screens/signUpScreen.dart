@@ -17,6 +17,21 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: Padding(
+          padding: EdgeInsets.only(top: 5.0),
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios_rounded),
+            color: Colors.white,
+            iconSize: 30,
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: yellow,
+      ),
       backgroundColor: yellow,
       body: SafeArea(child: Consumer<siggning>(builder: (context, sign, child) {
         return ListView(
@@ -24,7 +39,7 @@ class SignUpScreen extends StatelessWidget {
             Column(
               children: [
                 SizedBox(
-                  height: 100,
+                  height: 70,
                 ),
                 Align(
                   alignment: Alignment.centerLeft,

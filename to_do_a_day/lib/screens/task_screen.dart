@@ -139,20 +139,29 @@ class _TasksScreenState extends State<TasksScreen>
                                     .split('@')
                                     .first
                                 : 'You',
-                            style: conToday.copyWith(fontSize: 17)),
+                            style: conTodaysDate.copyWith(fontSize: 17)),
                         SizedBox(width: 10),
                         EditButton(() {})
                       ],
                     ),
-                    Text(
-                      //Email
-                      Provider.of<siggning>(context, listen: false)
-                          .loggedUser!
-                          .email
-                          .toString(),
-                      style: conTodaysDate.copyWith(
-                          color: Colors.white.withOpacity(0.8)),
-                    )
+                    siggning().auth.currentUser != null
+                        ? Text(
+                            //Email
+                            Provider.of<siggning>(context, listen: false)
+                                .loggedUser!
+                                .email
+                                .toString(),
+                            style: conTodaysDate.copyWith(
+                                color: Colors.white.withOpacity(0.8)),
+                          )
+                        : InkWell(
+                            child: Text(
+                              'create Account?',
+                              style: conTodaysDate.copyWith(
+                                  fontSize: 15,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          )
                   ],
                 )
               ],
@@ -170,11 +179,8 @@ class _TasksScreenState extends State<TasksScreen>
           menuNavs(LineIcons.bell, 'Alarm settings', () {
             Navigator.pushNamed(context, '/alarm');
           }, '', context),
-          menuNavs(LineIcons.alternateUser, 'Profile', () {
-            Navigator.pushNamed(context, '/pro');
-          }, '', context),
           SizedBox(
-            height: 190,
+            height: 220,
           ),
           Row(
             children: [
@@ -186,9 +192,16 @@ class _TasksScreenState extends State<TasksScreen>
                 '|',
                 style: conToday,
               ),
-              iconText(Icons.logout_rounded, 'logout', () {
-                Provider.of<siggning>(context, listen: false).auth.signOut();
-              })
+              siggning().auth.currentUser != null
+                  ? iconText(Icons.logout_rounded, 'logout', () {
+                      Provider.of<siggning>(context, listen: false)
+                          .auth
+                          .signOut();
+                      Navigator.pushNamed(context, '/task');
+                    })
+                  : iconText(Icons.login_rounded, 'login', () {
+                      Navigator.pushNamed(context, '/log');
+                    })
             ],
           )
         ],
@@ -243,17 +256,6 @@ class _TasksScreenState extends State<TasksScreen>
                             width: 300,
                           ),
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: IconButton(
-                            icon: Icon(Icons.help_rounded),
-                            color: Colors.white,
-                            iconSize: 30,
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/arc');
-                            },
-                          ),
-                        )
                       ],
                     ),
                   ),

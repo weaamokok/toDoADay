@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_a_day/elements/widgets/taskTile.dart';
@@ -17,6 +18,8 @@ class TaskData extends ChangeNotifier {
     // Task(name: 'nme', priority: 1),
     // Task(name: 'ame', priority: 1)
   ];
+  var len;
+  var archlen;
   List<List<Task>> _taskArchive = [];
   final fireStore = FirebaseFirestore.instance;
 
@@ -61,14 +64,17 @@ class TaskData extends ChangeNotifier {
 
   void timerForArchive(context) {
     DateFormat formator = DateFormat('yyyy-MM-dd');
-    String formated = formator.format(DateTime(
-      CurrentDate.year,
-      CurrentDate.month,
-      CurrentDate.day + 1,
-    ));
-    // String formated = formator.format(CurrentDate);
-    DateTime timetoArch = DateTime.parse("$formated 00:00:00Z");
-    Timer(timetoArch.difference(CurrentDate), () {
+    // String formated = formator.format(DateTime(
+    //   CurrentDate.year,
+    //   CurrentDate.month,
+    //   CurrentDate.day + 1,
+    // ));
+    String formated = formator.format(DateTime.now());
+
+    DateTime timetoArch = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day + 1, 00, 00, 00);
+
+    Timer(timetoArch.difference(DateTime.now()), () {
       notifyListeners();
       db.archivingTasks();
     });
@@ -89,10 +95,6 @@ class TaskData extends ChangeNotifier {
     tasks.remove(task);
     notifyListeners();
     db.deleteTask(task);
-  }
-
-  bool isEmptyList() {
-    return Tasks.iterator.moveNext();
   }
 
   int? countinarchiveLen() {

@@ -32,6 +32,13 @@ void main() async {
   //     isArchived: false));
 
   await Firebase.initializeApp();
+
+  // String formated = formator.format(DateTime.now());
+
+  DateTime timetoArch = DateTime(DateTime.now().year, DateTime.now().month,
+      DateTime.now().day, 00, 10, 00);
+  debugPrint(' ${timetoArch.difference(DateTime.now())}');
+
   runApp(MyApp());
 }
 

@@ -9,10 +9,11 @@ import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 
 import '../const.dart';
 
-String newTask = '';
+String? newTask;
 int selectedPriority = 1;
 DateTime? alarm;
 DateTime? creationTime;
+
 void selectionColor(int priority) {
   //1is green 2 is yellow 3 is red
 
@@ -69,7 +70,7 @@ class AddingTaskScreen extends StatefulWidget {
 class _AddingTaskScreenState extends State<AddingTaskScreen> {
   bool alarmIsSet = false;
   DateTime? dateTime;
-
+  TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,11 +95,12 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
                           width: 300,
                           // ignore: prefer_const_constructors
                           child: TextFormField(
+                            controller: controller,
                             onChanged: (newText) {
                               newTask = newText;
                             },
                             decoration: InputDecoration(
-                                hintText: 'Add To Do',
+                                hintText: 'Add Todo',
                                 hintStyle: conTodoTextStyle.copyWith(
                                     fontSize: 18,
                                     color: conPrimaryB.withOpacity(.3)),
@@ -136,9 +138,13 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
                   )),
               child: Stack(
                 children: [
-                  Text(
-                    'notification',
-                    style: connotifacationTimeTextStyle.copyWith(fontSize: 16),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      'notification',
+                      style:
+                          connotifacationTimeTextStyle.copyWith(fontSize: 16),
+                    ),
                   ),
                   Align(
                       alignment: Alignment.centerRight,
@@ -182,19 +188,8 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
                   children: [
                     InkWell(
                         onTap: () {
-                          newTask == ''
-                              ? Navigator.pop
-                              : Provider.of<TaskData>(context, listen: false)
-                                  .addTask(
-                                      newTask,
-                                      false,
-                                      selectedPriority,
-                                      alarmIsSet ? dateTime : null,
-                                      false,
-                                      CurrentDate);
-
-                          resetPriority();
                           Navigator.pop(context);
+                          controller?.clear();
                         },
                         child: Text(
                           'cancel',
@@ -206,11 +201,11 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
                         )),
                     InkWell(
                         onTap: () {
-                          newTask == ''
+                          newTask == null
                               ? Navigator.pop
                               : Provider.of<TaskData>(context, listen: false)
                                   .addTask(
-                                      newTask,
+                                      newTask.toString(),
                                       false,
                                       selectedPriority,
                                       alarmIsSet ? dateTime : null,
@@ -219,6 +214,7 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
 
                           resetPriority();
                           Navigator.pop(context);
+                          controller?.clear();
                         },
                         child: Text(
                           'Done',
