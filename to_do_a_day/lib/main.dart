@@ -22,22 +22,14 @@ import 'elements/module/databaseHelper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var db = DatabaseHandler();
-  // db.insertTask(Task(
-  //     name: 'test',
-  //     priority: 1,
-  //     notifacation: "20120227 13:27:00",
-  //     creationTime: DateTime.now().toUtc(),
-  //     isDone: false,
-  //     isArchived: false));
 
   await Firebase.initializeApp();
 
-  // String formated = formator.format(DateTime.now());
-
   DateTime timetoArch = DateTime(DateTime.now().year, DateTime.now().month,
-      DateTime.now().day, 00, 10, 00);
-  debugPrint(' ${timetoArch.difference(DateTime.now())}');
+      DateTime.now().day + 1, 00, 00, 00);
+
+  debugPrint(
+      ' ${timetoArch.difference(DateTime.now()).compareTo(Duration(days: 0, hours: 0, minutes: 0, seconds: 0))}');
 
   runApp(MyApp());
 }

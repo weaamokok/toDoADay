@@ -220,7 +220,9 @@ Widget iconText(IconData icon, String text, Function callback) {
 
 Widget EditButton(Function ontap) {
   return InkWell(
-    onTap: () => ontap,
+    onTap: () {
+      ontap();
+    },
     child: Row(
       children: [
         Text(
