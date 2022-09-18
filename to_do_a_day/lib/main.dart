@@ -22,14 +22,11 @@ import 'elements/module/databaseHelper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp();
-
   DateTime timetoArch = DateTime(DateTime.now().year, DateTime.now().month,
       DateTime.now().day + 1, 00, 00, 00);
 
-  debugPrint(
-      ' ${timetoArch.difference(DateTime.now()).compareTo(Duration(days: 0, hours: 0, minutes: 0, seconds: 0))}');
+  debugPrint(' ${DateTime.now().compareTo(timetoArch) <= 0}');
 
   runApp(MyApp());
 }

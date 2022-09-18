@@ -55,12 +55,6 @@ void selectionColor(int priority) {
   }
 }
 
-void resetPriority() {
-  gPriority = conActPriorityG;
-  rPriority = conActPriorityR;
-  yPriority = conActPriorityY;
-}
-
 class AddingTaskScreen extends StatefulWidget {
   @override
   State<AddingTaskScreen> createState() => _AddingTaskScreenState();
@@ -74,161 +68,190 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[100],
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 50),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50))),
-              child: SafeArea(
+        resizeToAvoidBottomInset:
+            false, //prevents the keyboarsd from overflowing
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: conPrimaryG.withOpacity(.2),
+          elevation: 0,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 30.0, top: 18),
+            child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+                controller?.clear();
+              },
+              child: Icon(
+                Icons.keyboard_arrow_left_rounded,
+                color: conPrimaryB.withOpacity(.8),
+                size: 50,
+              ),
+            ),
+          ),
+        ),
+        body: Container(
+          color: conPrimaryG.withOpacity(.2),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 30),
+                child: SafeArea(
+                  child: Stack(
+                    children: [
+                      SizedBox(
+
+                          // ignore: prefer_const_constructors
+                          child: Container(
+                        width: 350,
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 15,
+                                  offset: Offset(5, 5),
+                                  color: Colors.grey.withOpacity(.3))
+                            ],
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40),
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20))),
+                        child: TextFormField(
+                          controller: controller,
+                          onChanged: (newText) {
+                            newTask = newText;
+                          },
+                          decoration: InputDecoration(
+                              hintText: 'Add Todo',
+                              hintStyle: conTodoTextStyle.copyWith(
+                                  fontSize: 18,
+                                  color: conPrimaryB.withOpacity(.6)),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: conPrimaryY, width: 2)),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide.none)),
+                          autofocus: false,
+                        ),
+                      ))
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                  height: 80,
+                  margin: EdgeInsets.symmetric(horizontal: 30),
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 15,
+                            offset: Offset(5, 5),
+                            color: Colors.grey.withOpacity(.3))
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      )),
+                  child: priority()),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 30),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 15,
+                          offset: Offset(5, 5),
+                          color: Colors.grey.withOpacity(.3))
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    )),
                 child: Stack(
                   children: [
-                    Transform.translate(
-                      offset: Offset(50, 0),
-                      // ignore: prefer_const_constructors
-                      child: SizedBox(
-                          width: 300,
-                          // ignore: prefer_const_constructors
-                          child: TextFormField(
-                            controller: controller,
-                            onChanged: (newText) {
-                              newTask = newText;
-                            },
-                            decoration: InputDecoration(
-                                hintText: 'Add Todo',
-                                hintStyle: conTodoTextStyle.copyWith(
-                                    fontSize: 18,
-                                    color: conPrimaryB.withOpacity(.3)),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide.none)),
-                            autofocus: false,
-                          )),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        'notification',
+                        style:
+                            connotifacationTimeTextStyle.copyWith(fontSize: 17),
+                      ),
+                    ),
+                    Align(
+                        alignment: Alignment.centerRight,
+                        child: Switch(
+                            dragStartBehavior: DragStartBehavior.start,
+                            value: alarmIsSet,
+                            onChanged: (value) {
+                              setState(() {
+                                alarmIsSet = value;
+                              });
+                            })),
+                    Visibility(
+                      visible: alarmIsSet,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 35.0),
+                        child: TimePickerSpinner(
+                          is24HourMode: false,
+                          normalTextStyle: connotifacationTimeTextStyle
+                              .copyWith(color: conPrimaryB.withOpacity(.2)),
+                          highlightedTextStyle: connotifacationTimeTextStyle,
+                          spacing: 20,
+                          itemHeight: 40,
+                          isForce2Digits: true,
+                          onTimeChange: (time) {
+                            setState(() {
+                              dateTime = time;
+                            });
+                          },
+                        ),
+                      ),
                     )
                   ],
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(40),
-                    )),
-                child: priority()),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 31),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(40),
-                  )),
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      'notification',
-                      style:
-                          connotifacationTimeTextStyle.copyWith(fontSize: 16),
+              Transform.translate(
+                offset: Offset(MediaQuery.of(context).size.width / 100,
+                    MediaQuery.of(context).size.height * .30),
+                child: FloatingActionButton(
+                    backgroundColor: conPrimaryY,
+                    child: Icon(
+                      Icons.add_rounded,
+                      size: 40,
                     ),
-                  ),
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: Switch(
-                          dragStartBehavior: DragStartBehavior.start,
-                          value: alarmIsSet,
-                          onChanged: (value) {
-                            setState(() {
-                              alarmIsSet = value;
-                            });
-                          })),
-                  Visibility(
-                    visible: alarmIsSet,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 35.0),
-                      child: TimePickerSpinner(
-                        is24HourMode: false,
-                        normalTextStyle: connotifacationTimeTextStyle.copyWith(
-                            color: conPrimaryB.withOpacity(.2)),
-                        highlightedTextStyle: connotifacationTimeTextStyle,
-                        spacing: 20,
-                        itemHeight: 40,
-                        isForce2Digits: true,
-                        onTimeChange: (time) {
-                          setState(() {
-                            dateTime = time;
-                          });
-                        },
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(bottom: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                          controller?.clear();
-                        },
-                        child: Text(
-                          'cancel',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontFamily: 'Comics',
-                              color: conPrimaryB.withOpacity(.7)),
-                        )),
-                    InkWell(
-                        onTap: () {
-                          newTask == null
-                              ? Navigator.pop
-                              : Provider.of<TaskData>(context, listen: false)
-                                  .addTask(
-                                      newTask.toString(),
-                                      false,
-                                      selectedPriority,
-                                      alarmIsSet ? dateTime : null,
-                                      false,
-                                      CurrentDate);
-
-                          resetPriority();
-                          Navigator.pop(context);
-                          controller?.clear();
-                        },
-                        child: Text(
-                          'Done',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 23,
-                              fontFamily: 'Comics',
-                              color: yellow),
-                        )),
-                  ],
-                ),
-              ),
-            )
-          ],
+                    onPressed: () {
+                      newTask == null
+                          ? Navigator.pop
+                          : Provider.of<TaskData>(context, listen: false)
+                              .addTask(
+                                  newTask.toString(),
+                                  false,
+                                  selectedPriority,
+                                  alarmIsSet ? dateTime : null,
+                                  false,
+                                  CurrentDate);
+                      Provider.of<TaskData>(context, listen: false)
+                          .resetPriority();
+                      selectedPriority =
+                          1; //to reset the priority color to green when no color is selected
+                      Navigator.pop(context);
+                      controller?.clear();
+                    }),
+              )
+            ],
+          ),
         ));
   }
 }
@@ -248,7 +271,7 @@ class _priorityState extends State<priority> {
           child: Text(
             'priority',
             style: TextStyle(
-                fontSize: 16, fontFamily: 'Comics', color: conPrimaryB),
+                fontSize: 17, fontFamily: 'Comics', color: conPrimaryB),
           ),
         ),
         GestureDetector(

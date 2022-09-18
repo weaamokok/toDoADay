@@ -69,7 +69,7 @@ class aTask extends StatelessWidget {
                               color: conActPriorityR),
                         )),
                   ],
-                  buttonPadding: EdgeInsets.all(20),
+                  buttonPadding: EdgeInsets.all(25),
                   actionsAlignment: MainAxisAlignment.spaceAround,
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 50, horizontal: 100),

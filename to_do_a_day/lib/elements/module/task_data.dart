@@ -55,11 +55,10 @@ class TaskData extends ChangeNotifier {
     db.insertTask(task);
   }
 
-  void archivingTheDay() {
-    db.archivingTasks();
-    // tasks.map((task) => print(task.name));
-    // tasks.map((task) => {});
-    notifyListeners();
+  void resetPriority() {
+    gPriority = conActPriorityG;
+    rPriority = conActPriorityR;
+    yPriority = conActPriorityY;
   }
 
   void timerForArchive(context) {
@@ -74,12 +73,14 @@ class TaskData extends ChangeNotifier {
     DateTime timetoArch = DateTime(DateTime.now().year, DateTime.now().month,
         DateTime.now().day + 1, 00, 00, 00);
 
-    Timer(timetoArch.difference(DateTime.now()), () {
+    if (DateTime.now().compareTo(timetoArch) <= 0) {
+      //here I cpompare btween the date time now and the midnigh
       notifyListeners();
       db.archivingTasks();
-    });
+    }
   }
 
+//TODO find hoe to make it archive once a day
   void ArchiveEmpty() {
     notifyListeners();
     db.EmptyArchive();
