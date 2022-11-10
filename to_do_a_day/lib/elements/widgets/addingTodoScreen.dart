@@ -72,7 +72,7 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
             false, //prevents the keyboarsd from overflowing
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: conPrimaryG.withOpacity(.2),
+          backgroundColor: Colors.white,
           elevation: 0,
           leading: Padding(
             padding: const EdgeInsets.only(left: 30.0, top: 18),
@@ -90,7 +90,6 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
           ),
         ),
         body: Container(
-          color: conPrimaryG.withOpacity(.2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

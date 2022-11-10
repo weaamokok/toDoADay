@@ -51,7 +51,7 @@ class _TasksScreenState extends State<TasksScreen>
       begin: 1,
       end: 0.8,
     ).animate(_controller!);
-    TaskData().timerForArchive(context);
+    // TaskData().timerForArchive(context);//it's been called im main
   }
 
   @override
@@ -119,7 +119,6 @@ class _TasksScreenState extends State<TasksScreen>
                         fit: BoxFit.contain,
                       ),
                     ),
-                    EditButton(() {})
                   ],
                 ),
                 SizedBox(width: 10),
@@ -141,7 +140,6 @@ class _TasksScreenState extends State<TasksScreen>
                                 : 'You',
                             style: conTodaysDate.copyWith(fontSize: 17)),
                         SizedBox(width: 10),
-                        EditButton(() {})
                       ],
                     ),
                     siggning().auth.currentUser != null

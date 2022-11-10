@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:provider/provider.dart';
-import 'package:to_do_a_day/elements/const.dart';
+
 import 'package:to_do_a_day/elements/module/signing.dart';
 import 'package:to_do_a_day/elements/module/task.dart';
 import 'package:to_do_a_day/elements/module/task_data.dart';
@@ -23,11 +22,7 @@ import 'elements/module/databaseHelper.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  DateTime timetoArch = DateTime(DateTime.now().year, DateTime.now().month,
-      DateTime.now().day + 1, 00, 00, 00);
-
-  debugPrint(' ${DateTime.now().compareTo(timetoArch) <= 0}');
-
+  TaskData().ArchivingFunctionality();
   runApp(MyApp());
 }
 

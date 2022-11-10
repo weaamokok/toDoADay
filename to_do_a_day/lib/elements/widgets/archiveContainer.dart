@@ -24,7 +24,7 @@ class archiveContainer extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topRight,
-              child: FlatButton(
+              child: TextButton(
                   onPressed: () {
                     TaskData().ArchiveEmpty();
                   },

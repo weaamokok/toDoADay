@@ -80,10 +80,19 @@ class TaskData extends ChangeNotifier {
     }
   }
 
+  void ArchivingFunctionality() {
+    DateTime timetoArch = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day + 1, 00, 00, 00);
+    Timer(timetoArch.difference(DateTime.now()), () {
+      db.archivingTasks();
+      notifyListeners();
+    });
+  }
+
 //TODO find hoe to make it archive once a day
   void ArchiveEmpty() {
-    notifyListeners();
     db.EmptyArchive();
+    notifyListeners();
   }
 
   void updateTask(Task task) {
