@@ -45,6 +45,8 @@ dependencies:
   shared_preferences: ^2.0.15
   sqflite: ^2.0.2+1
   image_picker: ^0.8.5
+  alarm: ^0.0.6
+  flutter_local_notifications: ^13.0.0
   
   
 dev_dependencies:

@@ -28,33 +28,36 @@ class todosContainer extends StatelessWidget {
         child: Stack(
           children: [
             checkLists(),
-            Transform.translate(
-              offset: Offset(340, 550),
-              child: FloatingActionButton(
-                  backgroundColor: conPrimaryG,
-                  child: Icon(
-                    Icons.add_rounded,
-                    size: 35,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/addTask');
-                    // showModalBottomSheet(
-                    //     elevation: 0,
-                    //     enableDrag: false,
-                    //     isDismissible: false,
-                    //     context: context,
-                    //     builder: (context) => AddingTaskScreen());
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: FloatingActionButton(
+                    backgroundColor: conPrimaryG,
+                    child: Icon(
+                      Icons.add_rounded,
+                      size: 35,
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/addTask');
+                      // showModalBottomSheet(
+                      //     elevation: 0,
+                      //     enableDrag: false,
+                      //     isDismissible: false,
+                      //     context: context,
+                      //     builder: (context) => AddingTaskScreen());
 
-                    // setState(() {
-                    //   tasks.add(Task(
-                    //       name: newTask,
-                    //       priority: selectedPriority == null
-                    //           ? 1
-                    //           : selectedPriority,
-                    //       notifacation: alarm));
-                    // });
-                    //  }));
-                  }),
+                      // setState(() {
+                      //   tasks.add(Task(
+                      //       name: newTask,
+                      //       priority: selectedPriority == null
+                      //           ? 1
+                      //           : selectedPriority,
+                      //       notifacation: alarm));
+                      // });
+                      //  }));
+                    }),
+              ),
             )
           ],
         ) //here goes the Empty List or the checkList

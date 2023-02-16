@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icon.dart';
 import 'package:to_do_a_day/elements/widgets/taskTile.dart';
 import '../../screens/task_screen.dart';
 import '../const.dart';
@@ -13,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TaskData extends ChangeNotifier {
   final db = DatabaseHandler();
+  String? name;
   // ignore: prefer_final_fields
   List<Task> tasks = [
     // Task(name: 'nme', priority: 1),
@@ -40,6 +42,29 @@ class TaskData extends ChangeNotifier {
   //   notifyListeners();
   //   return tasks;
   // }
+  getName() async {
+    this.name = await db.getname();
+
+    setName(await db.getname());
+    print('----------------');
+    print(this.name);
+    notifyListeners();
+    return name;
+  }
+
+  void addName(addedName) {
+    name = addedName;
+    notifyListeners();
+    db.addName(addedName);
+  }
+
+  setName(name) => this.name = name;
+
+  void updateName(addedName) {
+    setName(addedName);
+    notifyListeners();
+    db.nameUpdate(addedName);
+  }
 
   void addTask(String name, bool isDone, int priority, DateTime? notifacation,
       bool isArchives, DateTime creationTime) {

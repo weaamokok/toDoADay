@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -11,6 +13,9 @@ class DatabaseHandler {
       await database.execute(
         'CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL ,isDone INTEGER NOT NULL ,priority INTEGER NOT NULL,notification TEXT,isArchived INTEGER NOT NULL,creationTime TEXT NOT NULL )',
       );
+      await database.execute(
+        'CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL)',
+      );
     }, version: 1);
   }
 
@@ -20,6 +25,35 @@ class DatabaseHandler {
     await db.insert('tasks', task.toMap(),
         conflictAlgorithm:
             ConflictAlgorithm.replace); //will replace any duplicate entry
+  }
+
+//add name to user
+  Future<void> addName(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final Database db = await initializeDb();
+    int userID = await db
+        .insert('user', {'name': name},
+            conflictAlgorithm: ConflictAlgorithm.replace)
+        .whenComplete(() => print(name)); //will replace any duplicate entry
+    await prefs.setInt('userID', userID);
+  }
+
+  //update name
+  Future<void> nameUpdate(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final Database db = await initializeDb();
+    await db.rawUpdate('UPDATE user SET name =?  WHERE id==? ',
+        [name, prefs.getInt('userID')]);
+  }
+
+  Future<void> deleteNames() async {
+    final Database db = await initializeDb();
+    await db
+        .rawUpdate(
+          'delete from user',
+        )
+        .whenComplete(() => debugPrint('done'));
   }
 
   //deleting from db
@@ -51,6 +85,15 @@ class DatabaseHandler {
                 ? true
                 : false, //no bool datatype in sqflite so converting it to int,and here we convert in to bool when it comes from db
             creationTime: items[i]['creationTime'])));
+  }
+
+  //fetch all tasks
+  Future<String> getname() async {
+    final Database db = await initializeDb();
+    List<Map<String, dynamic>> items = await db.query('user');
+    //now converting list of maps to lis of Tasks
+    print('from dataBase ${items[0]['name']}');
+    return items[0]['name']; //query the name
   }
 
   //to fetch the Archived tasks

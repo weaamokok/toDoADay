@@ -4,8 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/module/signing.dart';
+import '../screens/task_screen.dart';
 import 'const.dart';
 import 'package:path/path.dart';
+
+import 'module/databaseHelper.dart';
+import 'module/task_data.dart';
+
+TextEditingController con = TextEditingController();
 
 Widget EmptyList = Column(
   children: [
@@ -170,7 +176,7 @@ Widget RoundedButtonForGoogleAndFacebookSign(
 Widget menuNavs(IconData icon, String text, Function callback,
     String currentPath, BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.only(left: 60.0, top: 30),
+    padding: const EdgeInsets.only(left: 60.0, top: 25),
     child: InkWell(
         onTap: () => callback(),
         child: Row(
@@ -184,11 +190,11 @@ Widget menuNavs(IconData icon, String text, Function callback,
                   ? Colors.white
                   : Colors.white.withOpacity(.5),
             ),
-            SizedBox(width: 30),
+            SizedBox(width: 20),
             Text(
               text,
               style: conToday.copyWith(
-                  fontSize: 16,
+                  fontSize: 14,
                   color: ModalRoute.of(context)!.settings.name == currentPath
                       ? Colors.white
                       : Colors.white.withOpacity(.5)),
@@ -238,4 +244,56 @@ Widget EditButton(Function ontap) {
       ],
     ),
   );
+}
+
+class addingName extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 50, horizontal: 70),
+      child: Column(children: [
+        Text(
+          'what should we call you?',
+          style: conTodoTextStyle,
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        TextFormField(
+          controller: con,
+          decoration: InputDecoration(
+              border: border,
+              hintText: 'enter your name',
+              contentPadding: EdgeInsets.symmetric(horizontal: 25),
+              hintStyle: conTodoTextStyle.copyWith(
+                  fontSize: 14, color: Colors.black.withOpacity(.5))),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        InkWell(
+          onTap: () {
+            if (Provider.of<TaskData>(context, listen: false).name == null) {
+              Provider.of<TaskData>(context, listen: false).addName(con.text);
+              Navigator.pop(context);
+              con.clear();
+            } else {
+              Provider.of<TaskData>(context, listen: false)
+                  .updateName(con.text);
+              con.clear();
+
+              Navigator.pop(context);
+            }
+          },
+          child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 100, vertical: 12),
+              height: 50,
+              child: Text('save ', style: conTodaysDate.copyWith(fontSize: 14)),
+              decoration: BoxDecoration(
+                  color: yellow,
+                  borderRadius: BorderRadius.all(Radius.circular(20)))),
+        )
+      ]),
+    );
+  }
 }

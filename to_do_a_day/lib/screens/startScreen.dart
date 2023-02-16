@@ -31,12 +31,12 @@ class startingScreen extends StatelessWidget {
                   textAlign: TextAlign.left),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, '/log');
+                  Navigator.pushReplacementNamed(context, '/task');
                 },
                 child: Container(
                   padding: EdgeInsets.only(top: 8),
                   child: Text(
-                    'Register',
+                    'start',
                     textAlign: TextAlign.center,
                     style: conToday.copyWith(fontSize: 13),
                   ),

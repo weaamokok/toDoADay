@@ -43,9 +43,10 @@ class _TasksScreenState extends State<TasksScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
+    TaskData().ArchivingFunctionality();
 
     Tasks = TaskData().tasks;
-    Provider.of<siggning>(context, listen: false).getCurrentUser();
+    Provider.of<TaskData>(context, listen: false).getName();
     _controller = AnimationController(vsync: this, duration: duration);
     _scaleAnimation = Tween<double>(
       begin: 1,
@@ -63,6 +64,8 @@ class _TasksScreenState extends State<TasksScreen>
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<TaskData>(context, listen: false).getName();
+
     Size size = MediaQuery.of(context).size;
     screenWidth = size.width;
     ScreenHeigth = size.height;
@@ -113,7 +116,7 @@ class _TasksScreenState extends State<TasksScreen>
                     CircleAvatar(
                       //Avatar
                       backgroundColor: Color(0xff).withOpacity(0),
-                      radius: 50,
+                      radius: 40,
                       child: Image.asset(
                         'images/Stuck at Home - Avatar.png',
                         fit: BoxFit.contain,
@@ -128,38 +131,59 @@ class _TasksScreenState extends State<TasksScreen>
                     Row(
                       children: [
                         Text(
-                            siggning().auth.currentUser != null
-                                ?
-                                //UserName
-                                Provider.of<siggning>(context, listen: false)
-                                    .loggedUser!
-                                    .email
-                                    .toString()
-                                    .split('@')
-                                    .first
-                                : 'You',
+                            //for google signing
+                            // siggning().auth.currentUser != null
+                            //     ?
+                            //     //UserName
+                            //     Provider.of<siggning>(context, listen: false)
+                            //         .loggedUser!
+                            //         .email
+                            //         .toString()
+                            //         .split('@')
+                            //         .first
+                            //     :
+                            Provider.of<TaskData>(context, listen: false)
+                                            .name ==
+                                        null ||
+                                    Provider.of<TaskData>(context,
+                                                listen: false)
+                                            .name ==
+                                        ''
+                                ? 'You'
+                                : Provider.of<TaskData>(context, listen: false)
+                                    .name
+                                    .toString(),
                             style: conTodaysDate.copyWith(fontSize: 17)),
                         SizedBox(width: 10),
                       ],
                     ),
-                    siggning().auth.currentUser != null
-                        ? Text(
-                            //Email
-                            Provider.of<siggning>(context, listen: false)
-                                .loggedUser!
-                                .email
-                                .toString(),
-                            style: conTodaysDate.copyWith(
-                                color: Colors.white.withOpacity(0.8)),
-                          )
-                        : InkWell(
-                            child: Text(
-                              'create Account?',
-                              style: conTodaysDate.copyWith(
-                                  fontSize: 15,
-                                  decoration: TextDecoration.underline),
-                            ),
-                          )
+
+                    ///for google signing
+                    // siggning().auth.currentUser != null
+                    //     ? Text(
+                    //         //Email
+                    //         Provider.of<siggning>(context, listen: false)
+                    //             .loggedUser!
+                    //             .email
+                    //             .toString(),
+                    //         style: conTodaysDate.copyWith(
+                    //             color: Colors.white.withOpacity(0.8)),
+                    //       )
+                    //     :
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                            isScrollControlled: false,
+                            elevation: 100,
+                            context: context,
+                            builder: (context) => addingName());
+                      },
+                      child: Text(
+                        'what to call you?',
+                        style: conTodaysDate.copyWith(
+                            fontSize: 12, decoration: TextDecoration.underline),
+                      ),
+                    )
                   ],
                 )
               ],
@@ -180,28 +204,6 @@ class _TasksScreenState extends State<TasksScreen>
           SizedBox(
             height: 220,
           ),
-          Row(
-            children: [
-              SizedBox(
-                width: 40,
-              ),
-              iconText(Icons.settings, 'settings', () {}),
-              Text(
-                '|',
-                style: conToday,
-              ),
-              siggning().auth.currentUser != null
-                  ? iconText(Icons.logout_rounded, 'logout', () {
-                      Provider.of<siggning>(context, listen: false)
-                          .auth
-                          .signOut();
-                      Navigator.pushNamed(context, '/task');
-                    })
-                  : iconText(Icons.login_rounded, 'login', () {
-                      Navigator.pushNamed(context, '/log');
-                    })
-            ],
-          )
         ],
       ),
     );
