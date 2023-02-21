@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:alarm/alarm.dart';
 import 'package:flutter/gestures.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/module/task_data.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:to_do_a_day/elements/widgets.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 // ignore: unnecessary_import
-
+import 'package:alarm/alarm.dart';
 import '../const.dart';
 
 String? newTask;
@@ -66,6 +67,12 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
   DateTime? dateTime;
   TextEditingController? controller;
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset:
@@ -89,7 +96,7 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
             ),
           ),
         ),
-        body: Container(
+        body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -102,7 +109,7 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
 
                           // ignore: prefer_const_constructors
                           child: Container(
-                        width: 350,
+                        width: double.infinity,
                         margin:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                         padding:
@@ -221,33 +228,46 @@ class _AddingTaskScreenState extends State<AddingTaskScreen> {
                   ],
                 ),
               ),
-              Transform.translate(
-                offset: Offset(MediaQuery.of(context).size.width / 100,
-                    MediaQuery.of(context).size.height * .30),
-                child: FloatingActionButton(
-                    backgroundColor: conPrimaryY,
-                    child: Icon(
-                      Icons.add_rounded,
-                      size: 40,
-                    ),
-                    onPressed: () {
-                      newTask == null
-                          ? Navigator.pop
-                          : Provider.of<TaskData>(context, listen: false)
-                              .addTask(
-                                  newTask.toString(),
-                                  false,
-                                  selectedPriority,
-                                  alarmIsSet ? dateTime : null,
-                                  false,
-                                  CurrentDate);
-                      Provider.of<TaskData>(context, listen: false)
-                          .resetPriority();
-                      selectedPriority =
-                          1; //to reset the priority color to green when no color is selected
-                      Navigator.pop(context);
-                      controller?.clear();
-                    }),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 28.0),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FloatingActionButton(
+                      backgroundColor: conPrimaryY,
+                      child: Icon(
+                        Icons.check,
+                        size: 40,
+                      ),
+                      onPressed: () {
+                        newTask == null
+                            ? Navigator.pop
+                            : {
+                                Provider.of<TaskData>(context, listen: false)
+                                    .addTask(
+                                        newTask.toString(),
+                                        false,
+                                        selectedPriority,
+                                        alarmIsSet ? dateTime : null,
+                                        false,
+                                        CurrentDate),
+                                Provider.of<TaskData>(context, listen: false)
+                                    .resetPriority(),
+                                selectedPriority =
+                                    1, //to reset the priority color to green when no color is selected
+                                Navigator.pop(context),
+                                alarmIsSet && dateTime != null
+                                    ? Alarm.set(
+                                        alarmDateTime: dateTime as DateTime,
+                                        assetAudio: "images/alarm.mp3",
+                                        notifTitle: "remainder ",
+                                        notifBody:
+                                            "don't forget to ${newTask.toString()}",
+                                      )
+                                    : null,
+                                controller?.clear()
+                              };
+                      }),
+                ),
               )
             ],
           ),

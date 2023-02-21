@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../const.dart';
 import '../module/databaseHelper.dart';
@@ -29,15 +30,36 @@ class _ArchiveListsState extends State<ArchiveLists> {
                   return ListView.builder(
                     itemBuilder: (context, index) {
                       final task = snapshot.data![index];
-                      return aTask(
-                          task.name.toString(),
-                          task.isDone,
-                          task.priority,
-                          DateTime.tryParse(task.notifacation ??
-                              ''), //the method parse didnt work tryParse() is it for the job here
-                          (chechboxState) {
-                        // taskData.updateTask(task);
-                      }, task);
+                      DateTime? creation = DateTime.tryParse(task.creationTime);
+                      return Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              DateFormat('d').format(creation as DateTime) +
+                                  ' ' +
+                                  DateFormat('MMM')
+                                      .format(creation as DateTime),
+                              style: conTodaysDate.copyWith(
+                                  color: Colors.black54, fontSize: 10),
+                            ),
+                          ),
+                          Expanded(
+                              flex: 20,
+                              child: aTask(
+                                taskTitle: task.name.toString(),
+                                isChecked: task.isDone,
+                                priority: task.priority,
+                                notifi: DateTime.tryParse(task.notifacation ??
+                                    ''), //the method parse didnt work tryParse() is it for the job here
+                                chechboxCallback: (chechboxState) {
+                                  // taskData.updateTask(task);
+                                },
+                                task: task,
+                                dayOfCreation: task.creationTime,
+                              ))
+                        ],
+                      );
                     },
                     itemCount: snapshot.data?.length,
                   );

@@ -27,6 +27,13 @@ class DatabaseHandler {
             ConflictAlgorithm.replace); //will replace any duplicate entry
   }
 
+  Future<void> updateTask(Task task) async {
+    final Database db = await initializeDb();
+    await db.update('tasks', task.toMap(),
+        conflictAlgorithm:
+            ConflictAlgorithm.replace); //will replace any duplicate entry
+  }
+
 //add name to user
   Future<void> addName(String name) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icon.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do_a_day/elements/widgets/taskTile.dart';
 import '../../screens/task_screen.dart';
 import '../const.dart';
@@ -14,6 +15,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TaskData extends ChangeNotifier {
   final db = DatabaseHandler();
+  String userImage = 'images/Stuck at Home - Avatar.png';
+
+  DateTime morningAlert = DateTime(DateTime.now().year, DateTime.now().month,
+      DateTime.now().day, 07, 00, 00);
   String? name;
   // ignore: prefer_final_fields
   List<Task> tasks = [
@@ -24,7 +29,13 @@ class TaskData extends ChangeNotifier {
   var archlen;
   List<List<Task>> _taskArchive = [];
   final fireStore = FirebaseFirestore.instance;
-
+//update Image
+  updateImage(isFemale) {
+    userImage = isFemale == true
+        ? 'images/Stuck at Home - Avatar.png'
+        : 'images/Stuck at Home Avatar.png';
+    notifyListeners();
+  }
   // List<List<Task>> deserializedLists=_taskArchive.;
 
   UnmodifiableListView<Task> get tasksy {
@@ -80,6 +91,20 @@ class TaskData extends ChangeNotifier {
     db.insertTask(task);
   }
 
+  void update(String name, bool isDone, int priority, DateTime? notifacation,
+      bool isArchives, DateTime creationTime) {
+    final task = Task(
+        name: name,
+        priority: priority,
+        isDone: false,
+        notifacation: notifacation,
+        isArchived: false,
+        creationTime: CurrentDate);
+    Tasks.add(task);
+    notifyListeners();
+    db.insertTask(task);
+  }
+
   void resetPriority() {
     gPriority = conActPriorityG;
     rPriority = conActPriorityR;
@@ -106,12 +131,8 @@ class TaskData extends ChangeNotifier {
   }
 
   void ArchivingFunctionality() {
-    DateTime timetoArch = DateTime(DateTime.now().year, DateTime.now().month,
-        DateTime.now().day + 1, 00, 00, 00);
-    Timer(timetoArch.difference(DateTime.now()), () {
-      db.archivingTasks();
-      notifyListeners();
-    });
+    db.archivingTasks();
+    notifyListeners();
   }
 
 //TODO find hoe to make it archive once a day

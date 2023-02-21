@@ -27,14 +27,17 @@ class checkLists extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final task = snapshot.data![index];
                       return aTask(
-                          task.name.toString(),
-                          task.isDone,
-                          task.priority,
-                          DateTime.tryParse(task.notifacation ??
-                              ''), //the method parse didnt work tryParse() is it for the job here
-                          (chechboxState) {
-                        taskData.updateTask(task);
-                      }, task);
+                        taskTitle: task.name.toString(),
+                        isChecked: task.isDone,
+                        priority: task.priority,
+                        notifi: DateTime.tryParse(task.notifacation ??
+                            ''), //the method parse didnt work tryParse() is it for the job here
+                        chechboxCallback: (chechboxState) {
+                          taskData.updateTask(task);
+                        },
+                        task: task,
+                        dayOfCreation: task.creationTime,
+                      );
                     },
                     itemCount: snapshot.data?.length,
                   );

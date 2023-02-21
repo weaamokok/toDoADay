@@ -15,14 +15,22 @@ double Spaceing = 0;
 class aTask extends StatelessWidget {
   String taskTitle;
   final bool isChecked;
+  String? dayOfCreation;
   int priority = 1;
   DateTime? notifi;
   final Function chechboxCallback;
   Task task;
+
   // TaskData taskData;
 //---------------------------
-  aTask(this.taskTitle, this.isChecked, this.priority, this.notifi,
-      this.chechboxCallback, this.task);
+  aTask(
+      {required this.taskTitle,
+      required this.isChecked,
+      required this.priority,
+      this.notifi,
+      required this.chechboxCallback,
+      required this.task,
+      this.dayOfCreation});
 //--------------------------------
 
   @override
@@ -32,6 +40,7 @@ class aTask extends StatelessWidget {
           vertical: notifi != null ? Spaceing = 0 : Spaceing = 10),
       child: ListTile(
         onLongPress: () {
+          //-----------------------------------
           showDialog(
               context: context,
               builder: (context) {

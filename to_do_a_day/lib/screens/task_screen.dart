@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +17,7 @@ import '../elements/module/signing.dart';
 import '../elements/module/task_data.dart';
 import '../elements/widgets.dart';
 import '../elements/widgets/addingTodo.dart';
+import '../elements/widgets/changeImage.dart';
 import '../elements/widgets/tasksList.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -43,7 +45,7 @@ class _TasksScreenState extends State<TasksScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
-    TaskData().ArchivingFunctionality();
+    // TaskData().ArchivingFunctionality();
 
     Tasks = TaskData().tasks;
     Provider.of<TaskData>(context, listen: false).getName();
@@ -113,13 +115,23 @@ class _TasksScreenState extends State<TasksScreen>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      //Avatar
-                      backgroundColor: Color(0xff).withOpacity(0),
-                      radius: 40,
-                      child: Image.asset(
-                        'images/Stuck at Home - Avatar.png',
-                        fit: BoxFit.contain,
+                    GestureDetector(
+                      onLongPress: () {
+                        showModalBottomSheet(
+                            isScrollControlled: false,
+                            elevation: 100,
+                            context: context,
+                            builder: (context) => changeImage());
+                      },
+                      child: CircleAvatar(
+                        //Avatar
+                        backgroundColor: Color(0xff).withOpacity(0),
+                        radius: 40,
+                        child: Image.asset(
+                          Provider.of<TaskData>(context, listen: false)
+                              .userImage,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                   ],
@@ -201,9 +213,6 @@ class _TasksScreenState extends State<TasksScreen>
           menuNavs(LineIcons.bell, 'Alarm settings', () {
             Navigator.pushNamed(context, '/alarm');
           }, '', context),
-          SizedBox(
-            height: 220,
-          ),
         ],
       ),
     );

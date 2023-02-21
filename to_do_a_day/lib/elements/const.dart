@@ -94,3 +94,32 @@ Color priorityColor(int priority) {
   } else
     return conActPriorityG;
 }
+
+final timePickerTheme = TimePickerThemeData(
+    hourMinuteColor: Colors.black54,
+    backgroundColor: Colors.white,
+    hourMinuteShape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+    ),
+    dayPeriodColor: yellow,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+    ),
+    dayPeriodTextColor: Colors.white,
+    dayPeriodShape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+      side: BorderSide(color: Colors.orange, width: 4),
+    ),
+    hourMinuteTextStyle:
+        const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+    dayPeriodTextStyle:
+        const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+    helpTextStyle: const TextStyle(
+        fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+    inputDecorationTheme: const InputDecorationTheme(
+      border: InputBorder.none,
+      contentPadding: EdgeInsets.all(0),
+    ),
+    hourMinuteTextColor: Colors.black54,
+    entryModeIconColor: Colors.orange,
+    dialTextColor: yellow);
